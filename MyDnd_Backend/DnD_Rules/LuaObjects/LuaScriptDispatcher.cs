@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DnD_Rules.LuaObjects
+namespace DnD.LuaObjects
 {
-    public class LuaScriptDispatcher
+    public static class LuaScriptDispatcher
     {
 
         private static Dictionary<string, LuaScript> _scripts = new ();
 
-        public LuaScriptDispatcher()
+        static LuaScriptDispatcher()
         {
             var scripts = ScanForScripts();
             FillScriptCache(scripts);
         }
 
-        private void FillScriptCache(IEnumerable<string> scripts)
+        private static void FillScriptCache(IEnumerable<string> scripts)
         {
             foreach(var script in scripts)
             {
@@ -25,13 +25,13 @@ namespace DnD_Rules.LuaObjects
             }
         }
 
-        private IEnumerable<string> ScanForScripts()
+        private static IEnumerable<string> ScanForScripts()
         {
             return Directory.GetFiles(LuaMagicWords.LuaFolder)
                 .Where(file => file.EndsWith(".lua"));
         }
 
-        public LuaScript GetScript(string script)
+        public static LuaScript GetScript(string script)
         {
             _scripts[script].Init();
             return _scripts[script];

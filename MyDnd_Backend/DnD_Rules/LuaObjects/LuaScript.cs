@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DnD_Rules.LuaObjects;
+namespace DnD.LuaObjects;
 
 public class LuaScript : IDisposable
 {
@@ -36,6 +36,11 @@ public class LuaScript : IDisposable
 
         if (checkFunc_lua != null)
             CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().First();
+    }
+
+    public TReturn DoLogic<TReturn>()
+    {
+        return default;
     }
 
     public bool CheckRequirements()

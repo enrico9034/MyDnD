@@ -1,4 +1,5 @@
 using DnD;
+using DnD.LuaObjects;
 
 namespace DnD_Rules.Tests
 {

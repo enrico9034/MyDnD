@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DnD_Rules\DnD_Rules.csproj" />
+    <ProjectReference Include="..\DnD_Rules\DnD.csproj" />
   </ItemGroup>
 
   <ItemGroup>
