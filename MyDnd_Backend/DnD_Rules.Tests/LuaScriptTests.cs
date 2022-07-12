@@ -14,6 +14,7 @@ namespace DnD_Rules.Tests
         {
             var lua = new LuaScript("lua/Check_true.lua");
             Assert.IsTrue(lua.CheckRequirements());
+            lua.Dispose();
         }
 
         [Test]
@@ -21,6 +22,7 @@ namespace DnD_Rules.Tests
         {
             var lua = new LuaScript("lua/Check_false.lua");
             Assert.IsFalse(lua.CheckRequirements());
+            lua.Dispose();
         }
     }
 }

@@ -47,4 +47,9 @@ public class LuaScript : IDisposable
     {
         _luaState.Dispose();
     }
+
+    ~LuaScript()
+    {
+        Dispose();
+    }
 }
