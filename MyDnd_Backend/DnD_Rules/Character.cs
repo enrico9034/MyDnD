@@ -1,4 +1,4 @@
-namespace DnD_Rules;
+namespace DnD;
 
 public class Character : DnDObj
 {

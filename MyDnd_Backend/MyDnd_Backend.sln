@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDnd_Backend_Api", "MyDnd_Backend_Api\MyDnd_Backend_Api.csproj", "{D9D4E0D9-AE3E-482C-9B70-E67DCAA542D0}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDnd_Backend_Api", "MyDnd_Backend_Api\MyDnd_Backend_Api.csproj", "{D9D4E0D9-AE3E-482C-9B70-E67DCAA542D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnD_Rules", "DnD_Rules\DnD_Rules.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD_Rules", "DnD_Rules\DnD_Rules.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnD_Rules.Tests", "DnD_Rules.Tests\DnD_Rules.Tests.csproj", "{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{317CE505-A4D4-40BE-B13F-5CA69E669E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317CE505-A4D4-40BE-B13F-5CA69E669E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317CE505-A4D4-40BE-B13F-5CA69E669E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB2B87AD-8488-4AF8-AC24-5694F5983FEA}
 	EndGlobalSection
 EndGlobal
