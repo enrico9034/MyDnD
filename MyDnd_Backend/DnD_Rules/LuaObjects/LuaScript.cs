@@ -5,12 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DnD;
-
-public static class LuaMagicWords
-{
-    public const string CheckRequirements_fun = "CheckRequirements";
-}
+namespace DnD_Rules.LuaObjects;
 
 public class LuaScript : IDisposable
 {
@@ -20,14 +15,19 @@ public class LuaScript : IDisposable
 
     protected Lua _luaState;
 
-    public LuaScript(string targetFile)
+    public LuaScript(string targetFile, bool init = true)
     {
         TargetFile = targetFile;
-        Init();
+        
+        if(init)
+            Init(); 
     }
 
-    internal void Init()
+    public void Init()
     {
+        if (_luaState != null)
+            return;
+        
         _luaState = new Lua();
 
         _luaState.LoadCLRPackage();
