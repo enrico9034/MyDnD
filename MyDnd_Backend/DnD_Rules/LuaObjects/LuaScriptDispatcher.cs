@@ -33,6 +33,7 @@ namespace DnD.LuaObjects
 
         public static LuaScript GetScript(string script)
         {
+            script = LuaMagicWords.LuaFolder + script;
             _scripts[script].Init();
             return _scripts[script];
         }

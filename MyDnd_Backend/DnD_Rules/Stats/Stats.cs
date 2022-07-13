@@ -20,6 +20,5 @@ namespace DnD.Stats
 
         public Charisma Charisma { get; } = new();
 
-
     }
 }

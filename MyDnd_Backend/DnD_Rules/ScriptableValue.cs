@@ -13,5 +13,10 @@ namespace DnD
             var script = LuaScriptDispatcher.GetScript(luaScript);
             Value = script.DoLogic<TType>();
         }
+        
+        public ScriptableValue(Character targetCharacter) //TODO (DG): Refactor Name
+        {
+            targetCharacter.ReCalculateStatsEvent += (_, _) => Calculate();
+        }
     }
 }

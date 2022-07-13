@@ -10,4 +10,13 @@
       <PackageReference Include="NLua" Version="1.6.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Lua\HP.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\AC.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

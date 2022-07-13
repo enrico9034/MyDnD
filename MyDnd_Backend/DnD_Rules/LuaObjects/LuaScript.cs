@@ -13,6 +13,8 @@ public class LuaScript : IDisposable
 
     Func<bool> CheckRequirementsInternal = () => false;
 
+    Func<object> CalculateInternal = () => default;
+    
     protected Lua _luaState;
 
     public LuaScript(string targetFile, bool init = true)
@@ -33,14 +35,19 @@ public class LuaScript : IDisposable
         _luaState.LoadCLRPackage();
         _luaState.DoFile(TargetFile);
         var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
+        var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
 
-        if (checkFunc_lua != null)
-            CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().First();
+        if (checkFunc_lua == null || calculateFunc_lua == null)
+            return;
+        
+        CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().First();
+
+        CalculateInternal = () => calculateFunc_lua.Call().First();
     }
 
-    public TReturn DoLogic<TReturn>()
+    public TReturn DoLogic<TReturn>() 
     {
-        return default;
+        return (TReturn)CalculateInternal();
     }
 
     public bool CheckRequirements()
