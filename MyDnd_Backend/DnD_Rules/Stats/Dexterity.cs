@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DnD
+namespace DnD.Stats
 {
-
-    public class ArmorClass : ScriptableValue<int>
+    public class Dexterity : Stat
     {
-        public override string luaScript => "AC.lua";
     }
 }

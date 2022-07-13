@@ -2,5 +2,7 @@ namespace DnD;
 
 public class Character : DnDObj
 {
-    public Health Health;
+    public Health HP;
+
+    public ArmorClass AC;
 }
