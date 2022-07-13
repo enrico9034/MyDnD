@@ -33,6 +33,7 @@ public class LuaScript : IDisposable
         _luaState = new Lua();
 
         _luaState.LoadCLRPackage();
+        
         _luaState.DoFile(TargetFile);
         var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
         var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
@@ -45,8 +46,9 @@ public class LuaScript : IDisposable
         CalculateInternal = () => calculateFunc_lua.Call().First();
     }
 
-    public TReturn DoLogic<TReturn>() 
+    public TReturn DoLogic<TReturn>(Character targetCharacter) 
     {
+        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
         return (TReturn)CalculateInternal();
     }
 

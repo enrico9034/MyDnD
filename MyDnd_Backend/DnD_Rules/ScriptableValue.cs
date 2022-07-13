@@ -8,15 +8,15 @@ namespace DnD
         
         public abstract string luaScript { get; }
 
-        public void Calculate()
+        public void Calculate(Character targetCharacter)
         {
             var script = LuaScriptDispatcher.GetScript(luaScript);
-            Value = script.DoLogic<TType>();
+            Value = script.DoLogic<TType>(targetCharacter);
         }
         
         public ScriptableValue(Character targetCharacter) //TODO (DG): Refactor Name
         {
-            targetCharacter.ReCalculateStatsEvent += (_, _) => Calculate();
+            targetCharacter.ReCalculateStatsEvent += (character, _) => Calculate(character as Character);
         }
     }
 }

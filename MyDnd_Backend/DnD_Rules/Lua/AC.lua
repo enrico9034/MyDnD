@@ -3,6 +3,6 @@ function CheckRequirements()
 end
 
 function Calculate()
-	DexterityModificator = 2
+	DexterityModificator = character.Stats.Dexterity.Modifier
 	return 10 + DexterityModificator
 end

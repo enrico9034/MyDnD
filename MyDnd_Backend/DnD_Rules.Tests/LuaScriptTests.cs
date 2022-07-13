@@ -1,5 +1,6 @@
 using DnD;
 using DnD.LuaObjects;
+using FluentAssertions;
 
 namespace DnD_Rules.Tests
 {
@@ -14,7 +15,7 @@ namespace DnD_Rules.Tests
         public void CheckTrue()
         {
             var lua = new LuaScript("lua/Check_true.lua");
-            Assert.IsTrue(lua.CheckRequirements());
+            lua.CheckRequirements().Should().BeTrue();
             lua.Dispose();
         }
 
@@ -22,7 +23,7 @@ namespace DnD_Rules.Tests
         public void CheckFalse()
         {
             var lua = new LuaScript("lua/Check_false.lua");
-            Assert.IsFalse(lua.CheckRequirements());
+            lua.CheckRequirements().Should().BeFalse();
             lua.Dispose();
         }
     }
