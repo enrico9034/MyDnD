@@ -1,7 +1,6 @@
-﻿namespace DnD.Stats
-{
-    public class Charisma : Stat
-    {
-    }
+﻿namespace DnD.Stats;
 
+public class Charisma : Stat
+{
 }
+

@@ -1,7 +1,6 @@
-﻿namespace DnD.Stats
-{
-    public class Intelligence : Stat
-    {
-    }
+﻿namespace DnD.Stats;
 
+public class Intelligence : Stat
+{
 }
+

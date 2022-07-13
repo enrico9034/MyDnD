@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DnD;
 
-namespace DnD
+public class ArmorClass : ScriptableValue<Int64>
 {
-
-    public class ArmorClass : ScriptableValue<Int64>
+    public ArmorClass(Character targetCharacter) : base(targetCharacter)
     {
-        public ArmorClass(Character targetCharacter) : base(targetCharacter)
-        {
-        }
-
-        public override string luaScript => "AC.lua";
     }
+
+    public override string luaScript => "AC.lua";
 }

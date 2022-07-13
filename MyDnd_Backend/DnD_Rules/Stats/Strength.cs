@@ -1,7 +1,6 @@
-﻿namespace DnD.Stats
-{
-    public class Strength : Stat
-    {
-    }
+﻿namespace DnD.Stats; 
 
+public class Strength : Stat
+{
 }
+

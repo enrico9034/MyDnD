@@ -1,7 +1,6 @@
-﻿namespace DnD.Stats
-{
-    public class Constitution : Stat
-    {
-    }
+﻿namespace DnD.Stats;
 
+public class Constitution : Stat
+{
 }
+
