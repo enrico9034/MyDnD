@@ -3,6 +3,6 @@ function CheckRequirements()
 end
 
 function Calculate()
-	ConstitutionModificator = 2
+	ConstitutionModificator = character.Stats.Constitution.Modifier
 	return 10 + ConstitutionModificator
 end

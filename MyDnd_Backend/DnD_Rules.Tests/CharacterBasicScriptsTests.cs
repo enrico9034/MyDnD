@@ -28,5 +28,17 @@ namespace DnD_Rules.Tests
             character.AC.Value.Should().Be(12, "15 => +2, 10 + 2 = 12");
 
         }
+        
+        [Test]
+        public void HealthTest()
+        {
+            var character = new Character();
+            character.Stats.Constitution.Value = 9;
+
+            character.ReCalculateStats();
+
+            character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
+
+        }
     }
 }
