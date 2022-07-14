@@ -43,7 +43,7 @@ public class LuaScript : IDisposable
         
         CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().First();
 
-        CalculateInternal = () => calculateFunc_lua.Call().First();
+        CalculateInternal = () => calculateFunc_lua.Call().FirstOrDefault();
     }
 
     public TReturn DoLogic<TReturn>(Character targetCharacter) 
@@ -52,6 +52,12 @@ public class LuaScript : IDisposable
         return (TReturn)CalculateInternal();
     }
 
+    public void DoLogic(Character targetCharacter)
+    {
+        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
+        CalculateInternal();
+    }
+    
     public bool CheckRequirements()
     {
         return CheckRequirementsInternal();

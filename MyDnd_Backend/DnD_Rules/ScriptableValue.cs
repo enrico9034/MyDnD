@@ -6,11 +6,11 @@ public abstract class ScriptableValue<TType>
 {
     public TType Value { get; internal set; }
     
-    public abstract string luaScript { get; }
+    public abstract string LuaScript { get; }
 
     public void Calculate(Character targetCharacter)
     {
-        var script = LuaScriptDispatcher.GetScript(luaScript);
+        var script = LuaScriptDispatcher.GetScript(LuaScript);
         Value = script.DoLogic<TType>(targetCharacter);
     }
     

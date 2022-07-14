@@ -6,5 +6,5 @@ public class ArmorClass : ScriptableValue<Int64>
     {
     }
 
-    public override string luaScript => "AC.lua";
+    public override string LuaScript => "AC.lua";
 }

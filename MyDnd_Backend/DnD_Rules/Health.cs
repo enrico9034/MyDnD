@@ -6,5 +6,5 @@ public class Health : ScriptableValue<Int64>
     {
     }
 
-    public override string luaScript => "HP.lua";
+    public override string LuaScript => "HP.lua";
 }

@@ -22,8 +22,16 @@ public static class LuaScriptDispatcher
 
     private static IEnumerable<string> ScanForScripts()
     {
-        return Directory.GetFiles(LuaMagicWords.LuaFolder)
-            .Where(file => file.EndsWith(".lua"));
+        foreach (var dir in Directory.GetDirectories(LuaMagicWords.LuaFolder))
+        {
+            foreach (var file in Directory.GetFiles(dir).Where(file => file.EndsWith(".lua")))
+                yield return file;
+        }
+
+
+        foreach (var file in Directory.GetFiles(LuaMagicWords.LuaFolder)
+                     .Where(file => file.EndsWith(".lua")))
+            yield return file;
     }
 
     public static LuaScript GetScript(string script)

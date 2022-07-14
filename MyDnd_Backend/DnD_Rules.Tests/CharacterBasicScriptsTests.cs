@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DnD.Races;
 
 namespace DnD_Rules.Tests
 {
@@ -34,10 +35,15 @@ namespace DnD_Rules.Tests
         {
             var character = new Character();
             character.Stats.Constitution.Value = 9;
-
+            
             //character.StatsChanged();
 
             character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
+
+            character.Race = new Dwarf(character);
+            
+            character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
+
 
         }
     }

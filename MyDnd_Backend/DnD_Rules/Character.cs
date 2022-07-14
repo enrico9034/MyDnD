@@ -1,3 +1,5 @@
+using DnD.Races;
+
 namespace DnD;
 
 /// <summary>
@@ -11,6 +13,8 @@ public class Character : DnDObj
 
     public Stats.Stats Stats = new();
 
+    public Race Race;
+    
     public event EventHandler StatsChangedEvent = (_, _) => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
     public Character()
