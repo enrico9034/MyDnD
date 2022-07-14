@@ -3,6 +3,10 @@
 public class Stat
 {
     protected int _value = 1;
+
+    public delegate void StatsChangedEventHandler();
+    public event StatsChangedEventHandler StatChangedEvent;
+
     public int Value
     {
         get => _value;
@@ -13,6 +17,8 @@ public class Stat
             if (value > 20)
                 value = 20;
             _value = value;
+
+            if (StatChangedEvent != null) StatChangedEvent();
         }
     }
 

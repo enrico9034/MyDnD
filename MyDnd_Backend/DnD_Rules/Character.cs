@@ -17,6 +17,8 @@ public class Character : DnDObj
     {
         HP = new(this);
         AC = new(this);
+
+        Stats.AnyStatsChangedEvent += StatsChanged;
     }
 
     public void StatsChanged()

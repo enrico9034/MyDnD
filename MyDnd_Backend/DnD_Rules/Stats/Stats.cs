@@ -14,4 +14,21 @@ public class Stats
 
     public Charisma Charisma { get; } = new();
 
+    public event Stat.StatsChangedEventHandler AnyStatsChangedEvent;
+
+    public Stats()
+    {
+        Intelligence.StatChangedEvent += AnyStatsChanged;
+        Strength.StatChangedEvent += AnyStatsChanged;
+        Dexterity.StatChangedEvent += AnyStatsChanged;
+        Constitution.StatChangedEvent += AnyStatsChanged;
+        Wisdom.StatChangedEvent += AnyStatsChanged;
+        Charisma.StatChangedEvent += AnyStatsChanged;
+    }
+
+    private void AnyStatsChanged()
+    {
+        if (AnyStatsChangedEvent != null)
+            AnyStatsChangedEvent();
+    }
 }
