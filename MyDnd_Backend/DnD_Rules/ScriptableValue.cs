@@ -16,6 +16,6 @@ public abstract class ScriptableValue<TType>
     
     public ScriptableValue(Character targetCharacter) //TODO (DG): Refactor Name
     {
-        targetCharacter.ReCalculateStatsEvent += (character, _) => Calculate(character as Character);
+        targetCharacter.StatsChangedEvent += (character, _) => Calculate(character as Character);
     }
 }

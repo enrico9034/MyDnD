@@ -1,5 +1,8 @@
 namespace DnD;
 
+/// <summary>
+/// This is the translation of a player sheet from the DnD 5e rules.
+/// </summary>
 public class Character : DnDObj
 {
     public Health HP;
@@ -8,7 +11,7 @@ public class Character : DnDObj
 
     public Stats.Stats Stats = new();
 
-    public event EventHandler ReCalculateStatsEvent = (_, _) => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
+    public event EventHandler StatsChangedEvent = (_, _) => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
     public Character()
     {
@@ -16,8 +19,8 @@ public class Character : DnDObj
         AC = new(this);
     }
 
-    public void ReCalculateStats()
+    public void StatsChanged()
     {
-        ReCalculateStatsEvent(this, EventArgs.Empty);
+        StatsChangedEvent(this, EventArgs.Empty);
     }
 }
