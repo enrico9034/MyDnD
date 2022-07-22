@@ -2,9 +2,6 @@
 
 public class Dwarf : Race
 {
-    public Dwarf(Character targetCharacter) : base(targetCharacter)
-    {
-    }
-
     public override string RaceName => "Dwarf";
+    public override Races RaceType => Races.Dwarf;
 }

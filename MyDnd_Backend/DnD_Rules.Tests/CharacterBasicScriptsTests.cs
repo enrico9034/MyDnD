@@ -40,7 +40,7 @@ namespace DnD_Rules.Tests
 
             character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
 
-            character.Race = new Dwarf(character);
+            character.Race = Races.Dwarf;
             
             character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
 

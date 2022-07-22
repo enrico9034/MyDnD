@@ -13,7 +13,10 @@ public class Character : DnDObj
 
     public Stats.Stats Stats = new();
 
-    public Race Race;
+    public Races.Races Race
+    {
+        set => this.ApplyRace(value);
+    }
     
     public event EventHandler StatsChangedEvent = (_, _) => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
@@ -23,6 +26,8 @@ public class Character : DnDObj
         AC = new(this);
 
         Stats.AnyStatsChangedEvent += StatsChanged;
+        
+        RaceUtils.InitRaces();
     }
 
     public void StatsChanged()

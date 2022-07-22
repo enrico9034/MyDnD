@@ -6,7 +6,7 @@ public abstract class ScriptableModifier
 {
     public abstract string LuaScript { get;  }
 
-    public ScriptableModifier(Character targetCharacter)
+    public void Apply(Character targetCharacter)
     {
         var targetScript = LuaScriptDispatcher.GetScript(LuaScript);
         targetScript.CheckRequirements();
