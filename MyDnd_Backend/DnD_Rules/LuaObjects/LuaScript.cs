@@ -11,7 +11,7 @@ public class LuaScript : IDisposable
 {
     public string TargetFile { get; }
 
-    Func<bool> CheckRequirementsInternal = () => false;
+    Func<bool> CheckRequirementsInternal = () => true;
 
     Func<object> CalculateInternal = () => default;
     
@@ -41,7 +41,7 @@ public class LuaScript : IDisposable
         if (checkFunc_lua == null || calculateFunc_lua == null)
             return;
         
-        CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().First();
+        CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().FirstOrDefault();
 
         CalculateInternal = () => calculateFunc_lua.Call().FirstOrDefault();
     }

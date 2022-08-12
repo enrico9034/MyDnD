@@ -18,7 +18,8 @@ public class Character : DnDObj
         set => this.ApplyRace(value);
     }
     
-    public event EventHandler StatsChangedEvent = (_, _) => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
+    public event EventHandler StatsChangedEvent = (_, _) 
+        => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
     public Character()
     {
