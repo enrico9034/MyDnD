@@ -38,10 +38,11 @@ public class LuaScript : IDisposable
         var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
         var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
 
-        if (checkFunc_lua == null || calculateFunc_lua == null)
+        if (calculateFunc_lua == null)
             return;
         
-        CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().FirstOrDefault();
+        if (checkFunc_lua != null)
+            CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().FirstOrDefault();
 
         CalculateInternal = () => calculateFunc_lua.Call().FirstOrDefault();
     }
