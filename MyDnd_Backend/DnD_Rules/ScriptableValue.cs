@@ -8,14 +8,17 @@ public abstract class ScriptableValue<TType>
     
     public abstract string LuaScript { get; }
 
-    public void Calculate(Character targetCharacter)
+    private readonly Character _targetCharacter;
+
+    public void Calculate()
     {
         var script = LuaScriptDispatcher.GetScript(LuaScript);
-        Value = script.DoLogic<TType>(targetCharacter);
+        Value = script.DoLogic<TType>(_targetCharacter);
     }
     
     public ScriptableValue(Character targetCharacter) //TODO (DG): Refactor Name
     {
-        targetCharacter.StatsChangedEvent += (character, _) => Calculate(character as Character);
+        _targetCharacter = targetCharacter;
+        targetCharacter.StatsChangedEvent += (character, _) => Calculate();
     }
 }

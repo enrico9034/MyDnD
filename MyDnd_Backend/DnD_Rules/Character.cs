@@ -13,6 +13,10 @@ public class Character : DnDObj
 
     public Stats.Stats Stats = new();
 
+    public ProficiencyModificator ProficiencyModificator;
+
+    public Skills.Skills Skills;
+    
     public Races.Races Race
     {
         set => this.ApplyRace(value);
@@ -25,7 +29,9 @@ public class Character : DnDObj
     {
         HP = new(this);
         AC = new(this);
-
+        ProficiencyModificator = new(this);
+        Skills = new(this);
+        
         Stats.AnyStatsChangedEvent += StatsChanged;
         
         RaceUtils.InitRaces();

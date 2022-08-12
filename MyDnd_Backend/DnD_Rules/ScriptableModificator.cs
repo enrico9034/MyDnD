@@ -2,7 +2,7 @@
 
 namespace DnD;
 
-public abstract class ScriptableModifier
+public abstract class ScriptableModificator
 {
     public abstract string LuaScript { get;  }
 
