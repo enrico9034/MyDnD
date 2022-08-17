@@ -4,7 +4,7 @@ namespace DnD.LuaObjects;
 public static class LuaScriptDispatcher
 {
 
-    private static Dictionary<string, LuaScript> _scripts = new ();
+    private static Dictionary<string, ICollection<LuaScript>> _scripts = new ();
 
     static LuaScriptDispatcher()
     {
@@ -14,11 +14,14 @@ public static class LuaScriptDispatcher
 
     private static void FillScriptCache(IEnumerable<string> scripts)
     {
-        string RemoveFileExtension(string file) => file.Substring(0, file.Length - 4);
+        string SanitizeFileName(string file) => file.Substring(0, file.Length - 4).Split('_')[0];
 
         foreach(var script in scripts)
         {
-            _scripts[RemoveFileExtension(script)] = new LuaScript(script); //TODO (DG): Check if the string contains also the folder
+            var scriptKey = SanitizeFileName(script);
+            if (!_scripts.ContainsKey(scriptKey))
+                _scripts[scriptKey] = new List<LuaScript>();
+            _scripts[scriptKey].Add(new LuaScript(script)); //TODO (DG): Check if the string contains also the folder
         }
     }
 
@@ -36,10 +39,13 @@ public static class LuaScriptDispatcher
             yield return file.Replace('\\', '/');
     }
 
-    public static LuaScript GetScript(string script)
+    public static LuaScript[] GetScripts(string script)
     {
         script = LuaMagicWords.LuaFolder + script;
-        _scripts[script].Init();
-        return _scripts[script];
+        foreach (var _script in _scripts[script])
+        {
+            _script.Init();            
+        }
+        return _scripts[script].ToArray();
     }
 }

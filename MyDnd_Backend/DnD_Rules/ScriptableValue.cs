@@ -12,7 +12,10 @@ public abstract class ScriptableValue<TType>
 
     public void Calculate()
     {
-        var script = LuaScriptDispatcher.GetScript(LuaScript);
+        var script = LuaScriptDispatcher.GetScripts(LuaScript).FirstOrDefault();
+        
+        if(script == null || !script.CheckRequirements())
+            return;
         Value = script.DoLogic<TType>(_targetCharacter);
     }
     
