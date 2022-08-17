@@ -6,5 +6,5 @@ public class ProficiencyModificator : ScriptableValue<Int64>
     {
     }
 
-    public override string LuaScript => "ProficiencyModificator.lua";
+    public override string LuaScript => "ProficiencyModificator";
 }

@@ -2,7 +2,7 @@
 
 public static class LuaMagicWords
 {
-    public const string Skills_folder_name = "Skills";
+    public const string Skills_folder_name = "Skills/";
     
     public const string LuaFolder = "Lua/";
 
@@ -12,5 +12,7 @@ public static class LuaMagicWords
 
     public const string Character_luaState_keyword = "character";
 
-    public const string Race_folder_name = "Races";
+    public const string Race_folder_name = "Races/";
+
+    public const string Classes_folder_name = "Classes/";
 }

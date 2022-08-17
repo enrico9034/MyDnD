@@ -6,7 +6,7 @@ namespace DnD.Races;
 public abstract class Race : ScriptableModificator
 {
 
-    public override string LuaScript => LuaMagicWords.Race_folder_name + "\\" + this.GetType().Name + ".lua";
+    public override string LuaScript => LuaMagicWords.Race_folder_name + this.GetType().Name;
     
     public abstract Races RaceType { get; }
     

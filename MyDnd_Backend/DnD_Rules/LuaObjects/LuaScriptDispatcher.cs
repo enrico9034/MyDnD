@@ -14,9 +14,11 @@ public static class LuaScriptDispatcher
 
     private static void FillScriptCache(IEnumerable<string> scripts)
     {
+        string RemoveFileExtension(string file) => file.Substring(0, file.Length - 4);
+
         foreach(var script in scripts)
         {
-            _scripts[script] = new LuaScript(script); //TODO (DG): Check if the string contains also the folder
+            _scripts[RemoveFileExtension(script)] = new LuaScript(script); //TODO (DG): Check if the string contains also the folder
         }
     }
 
@@ -25,13 +27,13 @@ public static class LuaScriptDispatcher
         foreach (var dir in Directory.GetDirectories(LuaMagicWords.LuaFolder))
         {
             foreach (var file in Directory.GetFiles(dir).Where(file => file.EndsWith(".lua")))
-                yield return file;
+                yield return file.Replace('\\', '/');
         }
 
 
         foreach (var file in Directory.GetFiles(LuaMagicWords.LuaFolder)
                      .Where(file => file.EndsWith(".lua")))
-            yield return file;
+            yield return file.Replace('\\', '/');
     }
 
     public static LuaScript GetScript(string script)
