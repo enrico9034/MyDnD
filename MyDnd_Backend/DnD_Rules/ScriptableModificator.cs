@@ -11,12 +11,12 @@ public abstract class ScriptableModificator
         var targetScripts = LuaScriptDispatcher.GetScripts(LuaScript);
         foreach (var script in targetScripts)
         {
-            script.CheckRequirements();
+            script.CheckRequirements(_targetCharacter);
             script.DoLogic(_targetCharacter);   
         }
     }
 
-    private Character _targetCharacter;
+    protected Character _targetCharacter;
     public ScriptableModificator(Character targetCharacter)
     {
         _targetCharacter = targetCharacter;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DnD.Classes;
 using DnD.Races;
 
 namespace DnD_Rules.Tests
@@ -44,6 +45,27 @@ namespace DnD_Rules.Tests
             
             character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
 
+
+        }
+        
+        [Test]
+        public void DwarfLevel2Test()
+        {
+            var character = new Character();
+            character.Stats.Constitution.Value = 9;
+            character.Stats.Dexterity.Value = 9;
+            //character.StatsChanged();
+
+            character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
+
+            character.Race = Races.Dwarf;
+            
+            character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
+            
+            character.Classes.Add(new Paladin(character));
+            character.Classes[0].Level = 2;
+
+            character.Stats.Dexterity.Value.Should().Be(11);
 
         }
     }

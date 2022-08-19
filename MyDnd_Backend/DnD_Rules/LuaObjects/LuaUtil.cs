@@ -1,4 +1,5 @@
-﻿using DnD.Stats;
+﻿using DnD.Classes;
+using DnD.Stats;
 
 namespace DnD.Lua;
 
@@ -48,4 +49,9 @@ public class LuaUtil
         ModifyStat<Charisma>(amount);
     }
     #endregion
+    
+    public int GetPlayerLevel()
+    { 
+        return _targetCharacter.Stats.Level;
+    }
 }

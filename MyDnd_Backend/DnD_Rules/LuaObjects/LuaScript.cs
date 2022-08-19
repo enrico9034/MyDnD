@@ -73,8 +73,9 @@ public class LuaScript : IDisposable
         CalculateInternal();
     }
     
-    public bool CheckRequirements()
+    public bool CheckRequirements(Character targetCharacter)
     {
+        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
         return CheckRequirementsInternal();
     }
 

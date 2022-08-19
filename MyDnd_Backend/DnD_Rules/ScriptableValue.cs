@@ -14,7 +14,7 @@ public abstract class ScriptableValue<TType>
     {
         var script = LuaScriptDispatcher.GetScripts(LuaScript).FirstOrDefault();
         
-        if(script == null || !script.CheckRequirements())
+        if(script == null || !script.CheckRequirements(_targetCharacter))
             return;
         Value = script.DoLogic<TType>(_targetCharacter);
     }
