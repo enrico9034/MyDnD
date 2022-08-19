@@ -1,4 +1,4 @@
 ﻿
 function Calculate()
-    return 2
+    return math.floor(2 + (util:GetPlayerLevel() - 1)/4)
 end

@@ -19,6 +19,9 @@ public class Skills
         character.Skills.Acrobatics.IsProficient = true;
         
         character.Skills.Acrobatics.Value.Should().Be(5, "16 => +3 + proficiency");
+
+        character.Level = 20;
         
+        character.Skills.Acrobatics.Value.Should().Be(9, "16 => +3 + proficiency");
     }
 }
