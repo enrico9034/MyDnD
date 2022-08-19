@@ -8,14 +8,14 @@ namespace DnD;
 /// </summary>
 public class Character : DnDObj
 {
-    private int _level = 1;
+    private int _level = 0;
     public int Level
     {
         get => _level;
         set
         {
             _level = value;
-            StatsChangedEvent(this, EventArgs.Empty); //TODO: Create custom event
+            LevelChangedEvent(this, EventArgs.Empty); //TODO: Create custom event
         }
     }
 
@@ -33,12 +33,15 @@ public class Character : DnDObj
 
     public Races.Races Race
     {
-        set => RaceUtils.ApplyRace(value);
+        set => this.ApplyRace(value);
     }
     
     public event EventHandler StatsChangedEvent = (_, _) 
         => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
+    public event EventHandler LevelChangedEvent = (_, _) 
+        => Console.WriteLine("Recalculation level"); //TODO (DG): Create custom EventHandler type, Insert logging
+    
     public Character()
     {
         HP = new(this);
@@ -48,8 +51,6 @@ public class Character : DnDObj
         Classes = new(this);
         
         Stats.AnyStatsChangedEvent += StatsChanged;
-        
-        RaceUtils.InitRaces(this);
     }
 
     private bool _recalculatingStats = false;

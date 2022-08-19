@@ -11,6 +11,6 @@ public class Classes : List<Class>
     {
         var other = Activator.CreateInstance(typeof(TClassType), new []{_targetCharacter}) as Class;
         base.Add(other);
-        ClassesUtils.ApplyClasses(this);
+        other.Level = 1;
     }
 }

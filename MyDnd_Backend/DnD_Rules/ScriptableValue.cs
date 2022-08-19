@@ -23,5 +23,11 @@ public abstract class ScriptableValue<TType>
     {
         _targetCharacter = targetCharacter;
         targetCharacter.StatsChangedEvent += (character, _) => Calculate();
+        targetCharacter.LevelChangedEvent += (character, _) => Calculate();
+    }
+    
+    ~ScriptableValue()
+    {
+        _targetCharacter.StatsChangedEvent -= (character, _) => Calculate();
     }
 }

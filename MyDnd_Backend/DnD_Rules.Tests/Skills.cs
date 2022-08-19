@@ -1,4 +1,6 @@
-﻿namespace DnD_Rules.Tests;
+﻿using DnD.Classes;
+
+namespace DnD_Rules.Tests;
 
 public class Skills
 {
@@ -7,7 +9,7 @@ public class Skills
     {
         var character = new Character();
         character.Stats.Strength.Value = 15;
-            
+        character.Classes.Add<Paladin>();
         //character.StatsChanged();
 
         character.Skills.Acrobatics.Value.Should().Be(2, "15 => +2");

@@ -8,11 +8,9 @@ public abstract class Race : ScriptableModificator
 
     public override string LuaScript => LuaMagicWords.Race_folder_name + this.GetType().Name;
     
-    public abstract Races RaceType { get; }
-    
     protected Race(Character character) : base(character)
     {
-        RaceUtils.RegisterRace(this, RaceType);
+        character.LevelChangedEvent += (_, _) => this.Apply();
     }
     
 }

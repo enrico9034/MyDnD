@@ -4,7 +4,7 @@ namespace DnD.Classes;
 
 public class Class : ScriptableModificator
 {
-    private int _level = 1;
+    private int _level = 0;
 
     public int Level
     {
@@ -21,5 +21,6 @@ public class Class : ScriptableModificator
 
     public Class(Character targetCharacter) : base(targetCharacter)
     {
+        targetCharacter.LevelChangedEvent += (_, _) => Apply();
     }
 }
