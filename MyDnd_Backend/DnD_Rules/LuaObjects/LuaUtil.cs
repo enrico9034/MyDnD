@@ -14,7 +14,7 @@ public class LuaUtil
     #region Stat Functions
     private void ModifyStat<TTargetStat>(int amout) where TTargetStat : Stat
     {
-        if(_targetCharacter.RecalculatingStats)
+        if(_targetCharacter.IsRecalculatingStats())
             return;
         _targetCharacter.Stats.GetStat<TTargetStat>().Value += amout;
     }
@@ -52,6 +52,6 @@ public class LuaUtil
     
     public int GetPlayerLevel()
     { 
-        return _targetCharacter.Stats.Level;
+        return _targetCharacter.Level;
     }
 }

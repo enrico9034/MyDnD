@@ -62,7 +62,7 @@ namespace DnD_Rules.Tests
             
             character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
             
-            character.Classes.Add(new Paladin(character));
+            character.Classes.Add<Paladin>();
             character.Classes[0].Level = 2;
 
             character.Stats.Dexterity.Value.Should().Be(11);

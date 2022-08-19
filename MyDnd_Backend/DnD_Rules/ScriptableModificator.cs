@@ -11,8 +11,8 @@ public abstract class ScriptableModificator
         var targetScripts = LuaScriptDispatcher.GetScripts(LuaScript);
         foreach (var script in targetScripts)
         {
-            script.CheckRequirements(_targetCharacter);
-            script.DoLogic(_targetCharacter);   
+            if(script.CheckRequirements(_targetCharacter))
+                script.DoLogic(_targetCharacter);   
         }
     }
 

@@ -12,7 +12,7 @@ public class ClassTest
 
         character.AC.Value.Should().Be(12, "15 => +2, 10 + 2 = 12");
         
-        character.Classes.Add(new Paladin(character));
+        character.Classes.Add<Paladin>();
         character.AC.Value.Should().Be(13, "15 => +2, 10 + 2 = 12 + Paladin");
         
         character.Stats.Dexterity.Value = 16;

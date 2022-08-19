@@ -8,6 +8,17 @@ namespace DnD;
 /// </summary>
 public class Character : DnDObj
 {
+    private int _level = 1;
+    public int Level
+    {
+        get => _level;
+        set
+        {
+            _level = value;
+            StatsChangedEvent(this, EventArgs.Empty); //TODO: Create custom event
+        }
+    }
+
     public Health HP;
 
     public ArmorClass AC;
@@ -18,7 +29,7 @@ public class Character : DnDObj
 
     public Skills.Skills Skills;
 
-    public Classes.Classes Classes = new ();
+    public Classes.Classes Classes;
 
     public Races.Races Race
     {
@@ -34,21 +45,30 @@ public class Character : DnDObj
         AC = new(this);
         ProficiencyModificator = new(this);
         Skills = new(this);
+        Classes = new(this);
         
         Stats.AnyStatsChangedEvent += StatsChanged;
         
         RaceUtils.InitRaces(this);
     }
 
-    public bool RecalculatingStats = false;
+    private bool _recalculatingStats = false;
     private object _lock = new object();
     public void StatsChanged()
     {
         lock (_lock)
         {
-            RecalculatingStats = true;
+            _recalculatingStats = true;
             StatsChangedEvent(this, EventArgs.Empty);
-            RecalculatingStats = false;    
+            _recalculatingStats = false;    
+        }
+    }
+
+    public bool IsRecalculatingStats()
+    {
+        lock (_lock)
+        {
+            return _recalculatingStats;
         }
     }
 }

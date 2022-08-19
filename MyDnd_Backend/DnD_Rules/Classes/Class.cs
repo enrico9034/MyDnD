@@ -13,7 +13,7 @@ public class Class : ScriptableModificator
         {
             var delta = value - _level;            
             _level = value;
-            this._targetCharacter.Stats.Level += delta;
+            this._targetCharacter.Level += delta;
         }
     }
 

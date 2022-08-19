@@ -14,17 +14,6 @@ public class Stats
 
     public Charisma Charisma { get; } = new();
 
-    private int _level = 1;
-    public int Level
-    {
-        get => _level;
-        set
-        {
-            _level = value;
-            AnyStatsChanged();
-        }
-    }
-
     public event Stat.StatsChangedEventHandler AnyStatsChangedEvent;
 
     public Stats()
