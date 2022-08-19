@@ -17,7 +17,7 @@ public class ClassTest
         
         character.Stats.Dexterity.Value = 16;
         
-        character.AC.Value.Should().Be(13, "16 => +3, 10 + 3 = 13");
+        character.AC.Value.Should().Be(14, "16 => +3, 10 + 3 = 13 + Paladin");
 
 
         

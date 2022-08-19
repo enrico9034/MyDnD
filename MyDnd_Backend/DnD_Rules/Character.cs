@@ -40,8 +40,15 @@ public class Character : DnDObj
         RaceUtils.InitRaces(this);
     }
 
+    public bool RecalculatingStats = false;
+    private object _lock = new object();
     public void StatsChanged()
     {
-        StatsChangedEvent(this, EventArgs.Empty);
+        lock (_lock)
+        {
+            RecalculatingStats = true;
+            StatsChangedEvent(this, EventArgs.Empty);
+            RecalculatingStats = false;    
+        }
     }
 }

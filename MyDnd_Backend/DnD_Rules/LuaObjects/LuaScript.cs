@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DnD.Lua;
 
 namespace DnD.LuaObjects;
 
@@ -15,7 +16,7 @@ public class LuaScript : IDisposable
 
     Func<object> CalculateInternal = () => default;
     
-    protected Lua _luaState;
+    protected NLua.Lua _luaState;
 
     public LuaScript(string targetFile, bool init = true)
     {
@@ -30,7 +31,7 @@ public class LuaScript : IDisposable
         if (_luaState != null)
             return;
         
-        _luaState = new Lua();
+        _luaState = new NLua.Lua();
 
         _luaState.LoadCLRPackage();
         
@@ -61,12 +62,14 @@ public class LuaScript : IDisposable
     public TReturn DoLogic<TReturn>(Character targetCharacter) 
     {
         _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
+        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
         return (TReturn)CalculateInternal();
     }
 
     public void DoLogic(Character targetCharacter)
     {
         _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
+        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
         CalculateInternal();
     }
     

@@ -33,4 +33,21 @@ public class Stats
                 return;
             AnyStatsChangedEvent();
     }
+    
+    public Stat GetStat<T>() where T : Stat
+    {
+        if (typeof(T) == typeof(Intelligence))
+            return Intelligence;
+        if (typeof(T) == typeof(Strength))
+            return Strength;
+        if (typeof(T) == typeof(Dexterity))
+            return Dexterity;
+        if (typeof(T) == typeof(Constitution))
+            return Constitution;
+        if (typeof(T) == typeof(Wisdom))
+            return Wisdom;
+        if (typeof(T) == typeof(Charisma))
+            return Charisma;
+        throw new ArgumentException($"{typeof(T)} is not a valid stat");
+    }
 }

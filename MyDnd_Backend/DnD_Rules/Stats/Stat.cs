@@ -32,4 +32,9 @@ public class Stat
             return -1 * (int)Math.Ceiling(Math.Abs(partial));
         }
     }
+    
+    public void ModifyValueWithoutEvent(int modifier)
+    {
+        _value += modifier;
+    }
 }
