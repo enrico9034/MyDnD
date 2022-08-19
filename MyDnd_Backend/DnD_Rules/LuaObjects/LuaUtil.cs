@@ -10,7 +10,7 @@ public class LuaUtil
     {
         _targetCharacter = targetCharacter;
     }
-    
+    #region Stat Functions
     private void ModifyStat<TTargetStat>(int amout) where TTargetStat : Stat
     {
         if(_targetCharacter.RecalculatingStats)
@@ -47,5 +47,5 @@ public class LuaUtil
     {
         ModifyStat<Charisma>(amount);
     }
-    
+    #endregion
 }
