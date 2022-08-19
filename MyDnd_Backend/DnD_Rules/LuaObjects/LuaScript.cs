@@ -44,7 +44,18 @@ public class LuaScript : IDisposable
         if (checkFunc_lua != null)
             CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().FirstOrDefault();
 
-        CalculateInternal = () => calculateFunc_lua.Call().FirstOrDefault();
+        CalculateInternal = () =>
+        {
+            try
+            {
+                return calculateFunc_lua.Call().FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        };
     }
 
     public TReturn DoLogic<TReturn>(Character targetCharacter) 

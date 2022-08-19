@@ -26,9 +26,11 @@ public class Stats
         Charisma.StatChangedEvent += AnyStatsChanged;
     }
 
+    
     private void AnyStatsChanged()
     {
-        if (AnyStatsChangedEvent != null)
+            if (AnyStatsChangedEvent == null)
+                return;
             AnyStatsChangedEvent();
     }
 }

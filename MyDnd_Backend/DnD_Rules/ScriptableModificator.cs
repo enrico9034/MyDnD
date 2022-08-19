@@ -6,13 +6,19 @@ public abstract class ScriptableModificator
 {
     public abstract string LuaScript { get;  }
 
-    public void Apply(Character targetCharacter)
+    public void Apply()
     {
         var targetScripts = LuaScriptDispatcher.GetScripts(LuaScript);
         foreach (var script in targetScripts)
         {
             script.CheckRequirements();
-            script.DoLogic(targetCharacter);   
+            script.DoLogic(_targetCharacter);   
         }
+    }
+
+    private Character _targetCharacter;
+    public ScriptableModificator(Character targetCharacter)
+    {
+        _targetCharacter = targetCharacter;
     }
 }

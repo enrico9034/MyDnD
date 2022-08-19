@@ -10,7 +10,7 @@ public abstract class Race : ScriptableModificator
     
     public abstract Races RaceType { get; }
     
-    protected Race()
+    protected Race(Character character) : base(character)
     {
         RaceUtils.RegisterRace(this, RaceType);
     }

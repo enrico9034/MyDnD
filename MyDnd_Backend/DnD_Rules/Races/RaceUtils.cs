@@ -16,17 +16,17 @@ public static class RaceUtils
     {
         _enumToClassCtorBinding[raceEnum] = race;
     }
-    public static void ApplyRace(this Character target, Races race)
+    public static void ApplyRace(Races race)
     {
-        _enumToClassCtorBinding[race].Apply(target);
+        _enumToClassCtorBinding[race].Apply();
     }
 
-    public static void InitRaces()
+    public static void InitRaces(Character targetCharacter)
     {
         var racesClasses = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsAssignableTo(typeof(Race)) && !t.IsAbstract);
         foreach (var raceType in racesClasses)
         {
-            Activator.CreateInstance(raceType);
+            Activator.CreateInstance(raceType, new []{targetCharacter});
         }
     }
 }

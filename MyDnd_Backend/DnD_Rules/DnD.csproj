@@ -26,6 +26,9 @@
       <None Update="Lua\Skills\Acrobatics.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Lua\Classes\Paladin.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

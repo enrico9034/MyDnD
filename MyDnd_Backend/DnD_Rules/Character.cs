@@ -1,3 +1,4 @@
+using DnD.Classes;
 using DnD.Races;
 
 namespace DnD;
@@ -16,10 +17,12 @@ public class Character : DnDObj
     public ProficiencyModificator ProficiencyModificator;
 
     public Skills.Skills Skills;
-    
+
+    public Classes.Classes Classes = new ();
+
     public Races.Races Race
     {
-        set => this.ApplyRace(value);
+        set => RaceUtils.ApplyRace(value);
     }
     
     public event EventHandler StatsChangedEvent = (_, _) 
@@ -34,7 +37,7 @@ public class Character : DnDObj
         
         Stats.AnyStatsChangedEvent += StatsChanged;
         
-        RaceUtils.InitRaces();
+        RaceUtils.InitRaces(this);
     }
 
     public void StatsChanged()
