@@ -15,7 +15,7 @@ public class Character : DnDObj
         set
         {
             _level = value;
-            LevelChangedEvent(this, EventArgs.Empty); //TODO: Create custom event
+            LevelChangedEvent(); //TODO: Create custom event
         }
     }
 
@@ -35,12 +35,14 @@ public class Character : DnDObj
     {
         set => this.ApplyRace(value);
     }
-    
-    public event EventHandler StatsChangedEvent = (_, _) 
-        => Console.WriteLine("Recalculation stats"); //TODO (DG): Create custom EventHandler type, Insert logging
 
-    public event EventHandler LevelChangedEvent = (_, _) 
-        => Console.WriteLine("Recalculation level"); //TODO (DG): Create custom EventHandler type, Insert logging
+    public delegate void CharacterEventHandler();
+    
+    public event CharacterEventHandler StatsChangedEvent = ()
+        => Console.WriteLine("Recalculation stats"); 
+
+    public event CharacterEventHandler LevelChangedEvent = ()
+        => Console.WriteLine("Recalculation level");
     
     public Character()
     {
@@ -60,7 +62,7 @@ public class Character : DnDObj
         lock (_lock)
         {
             _recalculatingStats = true;
-            StatsChangedEvent(this, EventArgs.Empty);
+            StatsChangedEvent();
             _recalculatingStats = false;    
         }
     }

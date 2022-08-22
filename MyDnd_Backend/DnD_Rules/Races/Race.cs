@@ -10,7 +10,13 @@ public abstract class Race : ScriptableModificator
     
     protected Race(Character character) : base(character)
     {
-        character.LevelChangedEvent += (_, _) => this.Apply();
+        character.LevelChangedEvent += () => this.Apply();
     }
+
+    ~Race()
+    {
+        _targetCharacter.LevelChangedEvent -= () => this.Apply();
+    }
+    
     
 }

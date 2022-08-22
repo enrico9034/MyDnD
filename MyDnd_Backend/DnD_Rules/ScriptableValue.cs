@@ -22,12 +22,12 @@ public abstract class ScriptableValue<TType>
     public ScriptableValue(Character targetCharacter) //TODO (DG): Refactor Name
     {
         _targetCharacter = targetCharacter;
-        targetCharacter.StatsChangedEvent += (character, _) => Calculate();
-        targetCharacter.LevelChangedEvent += (character, _) => Calculate();
+        targetCharacter.StatsChangedEvent += () => Calculate();
+        targetCharacter.LevelChangedEvent += () => Calculate();
     }
     
     ~ScriptableValue()
     {
-        _targetCharacter.StatsChangedEvent -= (character, _) => Calculate();
+        _targetCharacter.StatsChangedEvent -= () => Calculate();
     }
 }

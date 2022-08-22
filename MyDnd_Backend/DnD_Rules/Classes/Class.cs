@@ -21,6 +21,6 @@ public class Class : ScriptableModificator
 
     public Class(Character targetCharacter) : base(targetCharacter)
     {
-        targetCharacter.LevelChangedEvent += (_, _) => Apply();
+        targetCharacter.LevelChangedEvent += () => Apply();
     }
 }

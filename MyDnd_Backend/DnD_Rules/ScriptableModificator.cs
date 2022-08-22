@@ -20,12 +20,12 @@ public abstract class ScriptableModificator
     public ScriptableModificator(Character targetCharacter)
     {
         _targetCharacter = targetCharacter;
-        _targetCharacter.StatsChangedEvent += (_, _) => Apply();
+        _targetCharacter.StatsChangedEvent += () => Apply();
     }
     
     ~ScriptableModificator()
     {
-        _targetCharacter.StatsChangedEvent -= (_, _) => Apply();
+        _targetCharacter.StatsChangedEvent -= () => Apply();
     }
     
 }
