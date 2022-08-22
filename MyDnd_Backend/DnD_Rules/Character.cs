@@ -30,7 +30,7 @@ public class Character : DnDObj
     public Skills.Skills Skills;
 
     public Classes.Classes Classes;
-
+    
     public Races.Races Race
     {
         set => this.ApplyRace(value);
