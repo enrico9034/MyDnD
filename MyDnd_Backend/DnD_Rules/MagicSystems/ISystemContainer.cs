@@ -4,8 +4,3 @@ public interface ISystemContainer <TSystemType> where TSystemType : SystemDescri
 {
     ISystemSpell<TSystemType>[] GetLearnedSpells();
 }
-
-public interface ISystemSpell<TSystemType> where TSystemType : SystemDescriptor
-{
-    
-}
