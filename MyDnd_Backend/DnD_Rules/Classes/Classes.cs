@@ -10,6 +10,8 @@ public class Classes : List<Class>
     public void Add<TClassType>() where TClassType : Class
     {
         var other = Activator.CreateInstance(typeof(TClassType), new []{_targetCharacter}) as Class;
+        if (other == null)
+          throw new InvalidOperationException("Class not found");
         base.Add(other);
         other.Level = 1;
     }

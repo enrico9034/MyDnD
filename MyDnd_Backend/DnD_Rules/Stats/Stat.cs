@@ -5,7 +5,7 @@ public class Stat
     protected int _value = 1;
 
     public delegate void StatsChangedEventHandler();
-    public event StatsChangedEventHandler StatChangedEvent;
+    public event StatsChangedEventHandler StatChangedEvent = () => { };
 
     public int Value
     {

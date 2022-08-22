@@ -14,7 +14,7 @@ public class Stats
 
     public Charisma Charisma { get; } = new();
 
-    public event Stat.StatsChangedEventHandler AnyStatsChangedEvent;
+    public event Stat.StatsChangedEventHandler AnyStatsChangedEvent = () => { };
 
     public Stats()
     {

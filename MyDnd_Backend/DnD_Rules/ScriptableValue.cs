@@ -4,7 +4,7 @@ namespace DnD;
 
 public abstract class ScriptableValue<TType>
 {
-    public TType Value { get; internal set; }
+    public TType? Value { get; internal set; }
     
     public abstract string LuaScript { get; }
 

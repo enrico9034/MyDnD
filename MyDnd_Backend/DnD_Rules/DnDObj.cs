@@ -2,5 +2,5 @@ namespace DnD;
 
 public abstract class DnDObj
 {
-    public string Name;
+    public string Name = string.Empty;
 }
