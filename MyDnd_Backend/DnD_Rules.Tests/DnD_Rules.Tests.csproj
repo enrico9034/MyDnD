@@ -21,13 +21,4 @@
     <ProjectReference Include="..\DnD_Rules\DnD.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="lua\Check_false.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="lua\Check_true.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
