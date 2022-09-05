@@ -1,6 +1,6 @@
 ﻿namespace DnD.MagicSystems;
 
-public abstract class System<TSystemType> where TSystemType : SystemDescriptor
+public abstract class System<TSystemType> where TSystemType : ISystemType
 {
     private readonly ISystemContainer<TSystemType> _container;
     private readonly ISystemConsumableStash<TSystemType> _consumableStash;

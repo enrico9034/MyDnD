@@ -17,4 +17,9 @@ public class KiAbilityStash : ISystemContainer<Ki>
 public class KiAbility : ISystemSpell<Ki>
 {
     public string Description => "";
+    
+    public KiAbility()
+    {
+        
+    }
 }

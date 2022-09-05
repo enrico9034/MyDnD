@@ -2,7 +2,7 @@
 
 public class KiPointsStash : ISystemConsumableStash<Ki>
 {
-    private IEnumerable<KiPoint> _availableKiPoints;
+    private readonly IEnumerable<KiPoint> _availableKiPoints;
 
     public KiPointsStash()
     {

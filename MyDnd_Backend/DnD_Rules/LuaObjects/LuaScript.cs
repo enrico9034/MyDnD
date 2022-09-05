@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DnD.Lua;
+using DnD.MagicSystems;
 
 namespace DnD.LuaObjects;
 
@@ -36,6 +37,9 @@ public class LuaScript : IDisposable
         _luaState.LoadCLRPackage();
         
         _luaState.DoFile(TargetFile);
+        foreach ((var systemName, var systemType) in StaticSystemTypeCollector.SystemTypes)
+            _luaState[systemName] = systemType;
+        
         var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
         var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
 

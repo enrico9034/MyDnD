@@ -3,7 +3,7 @@
 public class KiAbilityProvider : ISystemSpellProvider<Ki>
 {
     /// <summary>
-    /// Discovered means discovered on the hardisk (lua file) 
+    /// Discovered means discovered on the hardisk (lua files) 
     /// </summary>
     /// 
     private IEnumerable<KiAbility> _discoveredKiAbilities;

@@ -1,4 +1,5 @@
 using DnD.Classes;
+using DnD.MagicSystems;
 using DnD.Races;
 
 namespace DnD;
@@ -30,6 +31,14 @@ public class Character : DnDObj
     public Skills.Skills Skills;
 
     public Classes.Classes Classes;
+
+    public ISystemType PowerSystemType
+    {
+        set
+        {
+            value.EnablePowerSystem(this);
+        }
+    }
     
     public Races.Races Race
     {

@@ -1,4 +1,5 @@
 ﻿using DnD.Classes;
+using DnD.MagicSystems;
 using DnD.Stats;
 
 namespace DnD.Lua;
@@ -53,5 +54,10 @@ public class LuaUtil
     public int GetPlayerLevel()
     { 
         return _targetCharacter.Level;
+    }
+
+    public void EnablePowerSystem(ISystemType systemType)
+    {
+        _targetCharacter.PowerSystemType = systemType;
     }
 }

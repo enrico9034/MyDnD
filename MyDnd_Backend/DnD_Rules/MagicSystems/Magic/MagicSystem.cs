@@ -1,8 +1,12 @@
 ﻿namespace DnD.MagicSystems.Magic;
 
-public class Magic : SystemDescriptor
+public class Magic : ISystemType
 {
-    public override string SystemName { get; }
+    public string SystemName => "Magic";
+    public void EnablePowerSystem(Character targetCharacter)
+    {
+        
+    }
 }
 
 public class MagicSystem : System<Magic>
