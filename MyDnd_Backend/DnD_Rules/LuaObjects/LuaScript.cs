@@ -70,6 +70,11 @@ public class LuaScript : IDisposable
         return (TReturn)CalculateInternal();
     }
 
+    public dynamic DoLogic()
+    {
+        return CalculateInternal();
+    }
+
     public void DoLogic(Character targetCharacter)
     {
         _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;

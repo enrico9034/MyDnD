@@ -14,6 +14,6 @@ public class KiSystemTest
         character.Classes[0].Level = 2;
 
         var furryOfBlows = character.PowerSystem.GetAvailableSystemSpells<Ki>().GetSystemSpells()[0];
-        furryOfBlows.Should().Match(x => (x as KiAbility).Name.Equals("Lua/Systems/Ki/FurryOfBlows.lua"));
+        furryOfBlows.Should().Match(x => (x as KiAbility).Name.Equals("Furry Of Blows"));
     }
 }
