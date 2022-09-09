@@ -32,14 +32,7 @@ public class Character : DnDObj
 
     public Classes.Classes Classes;
 
-    public ISystemType PowerSystemType
-    {
-        set
-        {
-            value.EnablePowerSystem(this);
-        }
-    }
-    
+    public CharacterSystemAdaptor PowerSystem;
     public Races.Races Race
     {
         set => this.ApplyRace(value);
@@ -60,6 +53,7 @@ public class Character : DnDObj
         ProficiencyModificator = new(this);
         Skills = new(this);
         Classes = new(this);
+        PowerSystem = new(this);
         
         Stats.AnyStatsChangedEvent += StatsChanged;
     }

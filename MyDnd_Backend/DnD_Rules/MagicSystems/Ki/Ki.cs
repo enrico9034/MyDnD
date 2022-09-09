@@ -8,7 +8,14 @@ public class Ki : ISystemType
     
     public void EnablePowerSystem(Character targetCharacter)
     {
-        _system = new KiSystem(new KiAbilityStash(), new KiPointsStash());
+        _system = new KiSystem(new KiAbilityStash(), new KiPointsStash(), new KiAbilityProvider());
     }
-    
+
+    public System<TSystemType> GetSystem<TSystemType>() where TSystemType : ISystemType
+    {
+        if (typeof(TSystemType) != typeof(Ki))
+            throw new TypeAccessException();
+        
+        return _system as System<TSystemType>;
+    }
 }

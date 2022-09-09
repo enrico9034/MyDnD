@@ -27,7 +27,7 @@ public static class LuaScriptDispatcher
 
     private static IEnumerable<string> ScanForScripts()
     {
-        foreach (var dir in Directory.GetDirectories(LuaMagicWords.LuaFolder))
+        foreach (var dir in DeepSearchDirectories(LuaMagicWords.LuaFolder))
         {
             foreach (var file in Directory.GetFiles(dir).Where(file => file.EndsWith(".lua")))
                 yield return file.Replace('\\', '/');
@@ -39,6 +39,18 @@ public static class LuaScriptDispatcher
             yield return file.Replace('\\', '/');
     }
 
+    private static IEnumerable<string> DeepSearchDirectories(string path)
+    {
+        if (!Directory.Exists(path))
+            yield break;
+        if (Directory.GetDirectories(path).Any())
+            foreach (var subDir in Directory.GetDirectories(path))
+            foreach (var subResult in DeepSearchDirectories(subDir))
+                yield return subResult;
+        else
+            yield return path;
+    }
+
     public static LuaScript[] GetScripts(string script)
     {
         script = LuaMagicWords.LuaFolder + script;
@@ -47,5 +59,11 @@ public static class LuaScriptDispatcher
             _script.Init();            
         }
         return _scripts[script].ToArray();
+    }
+
+    public static LuaScript[] GetScripts(Func<string, bool> pathFilter)
+    {
+        return _scripts.Where(tuple => pathFilter(tuple.Key))
+            .SelectMany((tuple) => tuple.Value).ToArray();
     }
 }

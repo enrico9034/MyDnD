@@ -2,5 +2,5 @@
 
 public interface ISystemSpell<TSystemType> where TSystemType : ISystemType
 {
-    string Description { get; }
+    string Name { get; set; }
 }

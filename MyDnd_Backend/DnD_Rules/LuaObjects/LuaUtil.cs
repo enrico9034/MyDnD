@@ -58,6 +58,6 @@ public class LuaUtil
 
     public void EnablePowerSystem(ISystemType systemType)
     {
-        _targetCharacter.PowerSystemType = systemType;
+        _targetCharacter.PowerSystem.ApplySystem(systemType);
     }
 }

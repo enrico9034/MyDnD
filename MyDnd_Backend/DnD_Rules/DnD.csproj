@@ -38,6 +38,9 @@
       <None Update="Lua\Classes\Monk.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Lua\Systems\Ki\FurryOfBlows.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

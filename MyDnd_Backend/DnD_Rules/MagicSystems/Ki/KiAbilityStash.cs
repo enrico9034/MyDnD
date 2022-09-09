@@ -1,4 +1,7 @@
-﻿namespace DnD.MagicSystems.Ki;
+﻿using System.Collections.Immutable;
+using DnD.LuaObjects;
+
+namespace DnD.MagicSystems.Ki;
 
 public class KiAbilityStash : ISystemContainer<Ki>
 {
@@ -16,10 +19,22 @@ public class KiAbilityStash : ISystemContainer<Ki>
 
 public class KiAbility : ISystemSpell<Ki>
 {
-    public string Description => "";
+    public string Name { get; set; }
+
+    protected LuaScript _innerScript;
     
     public KiAbility()
     {
         
     }
+
+    public static KiAbility Build(LuaScript abilityDescriptor)
+    {
+        return new ()
+        {
+            _innerScript = abilityDescriptor,
+            Name = abilityDescriptor.TargetFile
+        };
+    }
+
 }

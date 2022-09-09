@@ -7,11 +7,16 @@ public class Magic : ISystemType
     {
         
     }
+
+    public System<TSystemType> GetSystem<TSystemType>() where TSystemType : ISystemType
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class MagicSystem : System<Magic>
 {
-    public MagicSystem(ISystemContainer<Magic> container, ISystemConsumableStash<Magic> consumable) : base(container, consumable)
+    public MagicSystem(ISystemContainer<Magic> container, ISystemConsumableStash<Magic> consumable, ISystemSpellProvider<Magic> spellProvider) : base(container, consumable, spellProvider)
     {
     }
 }
