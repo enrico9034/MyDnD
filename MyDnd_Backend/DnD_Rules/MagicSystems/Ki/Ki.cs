@@ -1,4 +1,6 @@
-﻿namespace DnD.MagicSystems.Ki;
+﻿using DnD.CustomExceptions;
+
+namespace DnD.MagicSystems.Ki;
 
 public class Ki : ISystemType
 {
@@ -14,8 +16,8 @@ public class Ki : ISystemType
     public System<TSystemType> GetSystem<TSystemType>() where TSystemType : ISystemType
     {
         if (typeof(TSystemType) != typeof(Ki))
-            throw new TypeAccessException();
-        
+            throw new PowerSystemTypeNotMatching<Ki, TSystemType>();
+
         return _system as System<TSystemType>;
     }
 }
