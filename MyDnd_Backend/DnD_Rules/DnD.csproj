@@ -41,6 +41,9 @@
       <None Update="Lua\Systems\Ki\FurryOfBlows.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Lua\Classes\Mage.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
