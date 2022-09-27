@@ -1,5 +1,5 @@
 
 function Calculate()
-	DexterityModificator = character.Stats.Dexterity.Modifier
-	return 10 + DexterityModificator
+	local DexterityModificator = character.Stats.Dexterity
+	return 10 + tonumber(DexterityModificator)
 end

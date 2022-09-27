@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DnD.Lua;
-using DnD.MagicSystems;
 
 namespace DnD.LuaObjects;
 
@@ -19,15 +18,12 @@ public class LuaScript : IDisposable
     
     protected NLua.Lua _luaState;
 
-    public LuaScript(string targetFile, bool init = true)
+    public LuaScript(string targetFile)
     {
         TargetFile = targetFile;
-        
-        if(init)
-            Init(); 
     }
 
-    public void Init()
+    public void Init(Character targetCharacter)
     {
         if (_luaState != null)
             return;
@@ -35,10 +31,12 @@ public class LuaScript : IDisposable
         _luaState = new NLua.Lua();
 
         _luaState.LoadCLRPackage();
-        
+
+        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
+
         _luaState.DoFile(TargetFile);
-        foreach ((var systemName, var systemType) in StaticSystemTypeCollector.SystemTypes)
-            _luaState[systemName] = systemType;
+        
+
         
         var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
         var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
@@ -65,23 +63,22 @@ public class LuaScript : IDisposable
 
     public TReturn DoLogic<TReturn>(Character targetCharacter) 
     {
-        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
-        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
+
         return (TReturn)CalculateInternal();
     }
 
-    public dynamic DoLogic()
+    public dynamic DoLogic(Character targetCharacter)
     {
+        // var stats = (targetCharacter.Stats as LuaTable);
+        // var dict = new Dictionary<string, long>();
+        // foreach (var key in stats.Keys.Cast<string>())
+        // {
+        //     dict[key] = stats[key] as long? ?? 0;
+        // }
+        // _luaState["Stats"] = dict;
         return CalculateInternal();
     }
 
-    public void DoLogic(Character targetCharacter)
-    {
-        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
-        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
-        CalculateInternal();
-    }
-    
     public bool CheckRequirements(Character targetCharacter)
     {
         _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);

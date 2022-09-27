@@ -1,5 +1,4 @@
-﻿using DnD.Classes;
-using DnD.MagicSystems;
+﻿
 using DnD.Stats;
 
 namespace DnD.Lua;
@@ -12,6 +11,7 @@ public class LuaUtil
     {
         _targetCharacter = targetCharacter;
     }
+    /*
     #region Stat Functions
     private void ModifyStat<TTargetStat>(int amout) where TTargetStat : Stat
     {
@@ -60,4 +60,5 @@ public class LuaUtil
     {
         _targetCharacter.PowerSystem.ApplySystem(systemType);
     }
+    */
 }

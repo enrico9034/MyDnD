@@ -1,80 +1,36 @@
-using DnD.Classes;
-using DnD.MagicSystems;
-using DnD.Races;
+using System.ComponentModel;
+using System.Dynamic;
+using DnD.LuaObjects;
+using DnD.Stats;
+using NLua;
 
 namespace DnD;
 
 /// <summary>
 /// This is the translation of a player sheet from the DnD 5e rules.
 /// </summary>
-public class Character : DnDObj
+public class Character : DynamicObject
 {
-    private int _level = 0;
-    public int Level
-    {
-        get => _level;
-        set
-        {
-            _level = value;
-            LevelChangedEvent(); //TODO: Create custom event
-        }
-    }
+    public Dictionary<string, dynamic> Stats = new ();
 
-    public Health HP;
-
-    public ArmorClass AC;
-
-    public Stats.Stats Stats = new();
-
-    public ProficiencyModificator ProficiencyModificator;
-
-    public Skills.Skills Skills;
-
-    public Classes.Classes Classes;
-
-    public CharacterSystemAdaptor PowerSystem;
-    public Races.Races Race
-    {
-        set => this.ApplyRace(value);
-    }
-
-    public delegate void CharacterEventHandler();
-    
-    public event CharacterEventHandler StatsChangedEvent = ()
-        => Console.WriteLine("Recalculation stats"); 
-
-    public event CharacterEventHandler LevelChangedEvent = ()
-        => Console.WriteLine("Recalculation level");
-    
     public Character()
     {
-        HP = new(this);
-        AC = new(this);
-        ProficiencyModificator = new(this);
-        Skills = new(this);
-        Classes = new(this);
-        PowerSystem = new(this);
+        LuaScriptDispatcher.GetScripts("Stats", this);
+    }
+    public override bool TryGetMember(GetMemberBinder binder, out object? result)
+    {
+        result = default;
+        var targetLogic = LuaScriptDispatcher.GetScripts(binder.Name, this);
+        if (!targetLogic.Any())
+            return false;
         
-        Stats.AnyStatsChangedEvent += StatsChanged;
+        result = targetLogic[0].DoLogic(this);
+        return true;
     }
 
-    private bool _recalculatingStats = false;
-    private object _lock = new object();
-    public void StatsChanged()
+    public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
     {
-        lock (_lock)
-        {
-            _recalculatingStats = true;
-            StatsChangedEvent();
-            _recalculatingStats = false;    
-        }
+        return base.TryInvokeMember(binder, args, out result);
     }
 
-    public bool IsRecalculatingStats()
-    {
-        lock (_lock)
-        {
-            return _recalculatingStats;
-        }
-    }
 }

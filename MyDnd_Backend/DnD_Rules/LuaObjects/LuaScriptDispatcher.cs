@@ -51,12 +51,12 @@ public static class LuaScriptDispatcher
             yield return path;
     }
 
-    public static LuaScript[] GetScripts(string script)
+    public static LuaScript[] GetScripts(string script, Character targetCharacter)
     {
         script = LuaMagicWords.LuaFolder + script;
         foreach (var _script in _scripts[script])
         {
-            _script.Init();            
+            _script.Init(targetCharacter);            
         }
         return _scripts[script].ToArray();
     }
