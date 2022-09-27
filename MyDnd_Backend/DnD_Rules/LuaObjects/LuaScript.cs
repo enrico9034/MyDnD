@@ -30,10 +30,9 @@ public class LuaScript : IDisposable
         
         _luaState = new NLua.Lua();
 
-        _luaState.LoadCLRPackage();
 
         _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
-
+        _luaState.DoString(File.ReadAllText(LuaMagicWords.LuaFolder + "Util.lua"));
         _luaState.DoFile(TargetFile);
         
 
@@ -67,15 +66,8 @@ public class LuaScript : IDisposable
         return (TReturn)CalculateInternal();
     }
 
-    public dynamic DoLogic(Character targetCharacter)
+    public dynamic DoLogic()
     {
-        // var stats = (targetCharacter.Stats as LuaTable);
-        // var dict = new Dictionary<string, long>();
-        // foreach (var key in stats.Keys.Cast<string>())
-        // {
-        //     dict[key] = stats[key] as long? ?? 0;
-        // }
-        // _luaState["Stats"] = dict;
         return CalculateInternal();
     }
 

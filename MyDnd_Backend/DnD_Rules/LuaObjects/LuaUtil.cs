@@ -1,6 +1,4 @@
 ﻿
-using DnD.Stats;
-
 namespace DnD.Lua;
 
 public class LuaUtil

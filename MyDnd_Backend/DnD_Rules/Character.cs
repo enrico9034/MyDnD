@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Dynamic;
 using DnD.LuaObjects;
-using DnD.Stats;
 using NLua;
 
 namespace DnD;
@@ -24,7 +23,7 @@ public class Character : DynamicObject
         if (!targetLogic.Any())
             return false;
         
-        result = targetLogic[0].DoLogic(this);
+        result = targetLogic[0].DoLogic();
         return true;
     }
 

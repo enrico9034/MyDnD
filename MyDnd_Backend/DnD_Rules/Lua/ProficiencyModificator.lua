@@ -1,4 +1,4 @@
 ﻿
 function Calculate()
-    return math.floor(2 + (util:GetPlayerLevel() - 1)/4)
+    return math.floor(2 + (character.Stats.Level - 1)/4)
 end

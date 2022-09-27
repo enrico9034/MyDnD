@@ -25,27 +25,27 @@ namespace DnD_Rules.Tests
             long dex = character.Stats["Dexterity"];
             dex.Should().Be(15);
             long ac = character.AC;
-            ac.Should().Be(25, "25 => +2, 10 + 2 = 12");
+            ac.Should().Be(12, "15 => +2, 10 + 2 = 12");
 
         }
-        //
-        // [Test]
-        // public void HealthTest()
-        // {
-        //     var character = new Character();
-        //     character.Stats.Constitution.Value = 9;
-        //     
-        //     //character.StatsChanged();
-        //
-        //     character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
-        //
-        //     character.Race = Races.Dwarf;
-        //     
-        //     character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
-        //
-        //
-        // }
-        //
+        
+         [Test]
+         public void HealthTest()
+         {
+             dynamic character = new Character();
+             character.Stats["Constitution"] = 9;
+             
+             //character.StatsChanged();
+        
+             (character.HP as long?).Should().Be(9, "9 => -1, 10 - 1 = 9");
+        
+             // character.Race = Races.Dwarf;
+             //
+             // character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
+        
+        
+         }
+        
         // [Test]
         // public void DwarfLevel2Test()
         // {
