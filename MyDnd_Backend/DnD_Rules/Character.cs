@@ -64,7 +64,7 @@ public class Character : DynamicObject
             foreach (var logic in targetLogic)
             {
                 if (logic.CheckRequirements())
-                    logic.DoLogic();
+                    result = logic.DoLogic();
             }
             return true;
         }

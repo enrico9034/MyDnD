@@ -14,3 +14,4 @@ function GetModificator(statValue)
     end
     return
 end
+
