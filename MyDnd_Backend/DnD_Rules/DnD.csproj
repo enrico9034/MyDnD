@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NLua" Version="1.6.0" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="Lua\HP.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -50,6 +46,28 @@
       <None Update="Lua\Util.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Lua\Race\Dwarf.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\Race\Dwarf_2.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\Class\Mage.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\Class\Monk.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\Class\Monk_2.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Lua\Class\Paladin.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NeoLua" Version="1.3.14" />
     </ItemGroup>
 
 </Project>

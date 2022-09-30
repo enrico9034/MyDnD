@@ -1,5 +1,7 @@
 ﻿
 
+using Neo.IronLua;
+
 namespace DnD_Rules.Tests
 {
     public class StatTest
@@ -9,17 +11,30 @@ namespace DnD_Rules.Tests
         {
             
              int expectedModifier = -5;
-             var lua = new NLua.Lua();
-             lua.DoFile("Lua/Util.lua");
-             var method = lua["GetModificator"] as NLua.LuaFunction;
+             var lua = new Lua();
+             var env = lua.CreateEnvironment();
+             env.DoChunk("Lua/Util.lua", Array.Empty<KeyValuePair<string, object>>());
              for (long i = 1; i <= 20; i++)
              {
                  if (i % 2 == 0)
                      expectedModifier++;
                  
                  
-                 (method.Call(i)[0] as long?).Should().Be(expectedModifier);
+                 (((dynamic)env).GetModificator(i)[0] as double?).Should().Be(expectedModifier);
              }
+        }
+
+        [Test]
+        public void ProficiencyModificator()
+        {
+            dynamic character = new Character();
+
+            (character.ProficiencyModificator as double?).Should().Be(2);
+
+            character.Stats.Level = 10;
+            
+            (character.ProficiencyModificator as double?).Should().Be(4);
+
         }
     }
 }

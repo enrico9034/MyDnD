@@ -6,4 +6,5 @@ function Calculate()
     else
         return character.Stats.Strength.Modifier
     end
+    return character.Stats.Strength
 end

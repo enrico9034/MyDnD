@@ -4,7 +4,6 @@
 --- DateTime: 9/27/2022 1:57 PM
 ---
 
-
 function GetModificator(statValue)
     local partial = ( statValue - 10 ) / 2
     if partial > 0

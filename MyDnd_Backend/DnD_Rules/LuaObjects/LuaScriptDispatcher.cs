@@ -61,9 +61,16 @@ public static class LuaScriptDispatcher
         return _scripts[script].ToArray();
     }
 
-    public static LuaScript[] GetScripts(Func<string, bool> pathFilter)
+    public static LuaScript[] GetScripts(Func<string, bool> pathFilter, Character targetCharacter)
     {
-        return _scripts.Where(tuple => pathFilter(tuple.Key))
+        var founded = _scripts.Where(tuple => pathFilter(tuple.Key))
             .SelectMany((tuple) => tuple.Value).ToArray();
+
+        foreach (var found in founded)
+        {
+            found.Init(targetCharacter);
+        }
+        
+        return founded;
     }
 }
