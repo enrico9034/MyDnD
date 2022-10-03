@@ -15,9 +15,11 @@ public class Character : DynamicObject
     
     public Dictionary<string, Func<dynamic, dynamic>> Stash = new();
 
+    internal LuaScriptDispatcher _dispatcher = new LuaScriptDispatcher();
+    
     public Character()
     {
-        LuaScriptDispatcher.GetScripts("Stats", this);
+        _dispatcher.GetScripts("Stats", this);
     }
     
     public override bool TryGetMember(GetMemberBinder binder, out object? result)
@@ -25,7 +27,7 @@ public class Character : DynamicObject
         lock (_lock)
         {
             result = default;
-            var targetLogic = LuaScriptDispatcher.GetScripts(binder.Name, this);
+            var targetLogic = _dispatcher.GetScripts(binder.Name, this);
             if (!targetLogic.Any())
                 return false;
             
@@ -45,7 +47,10 @@ public class Character : DynamicObject
                 throw new NullReferenceException();
             if (!(value is Func<dynamic, dynamic> modificator))
                 return true;
-            Stash[binder.Name] = (x) => modificator(x)[0];
+            Func<dynamic, dynamic> previousStashedFunc = (x) => x;
+            if (Stash.ContainsKey(binder.Name))
+                previousStashedFunc = Stash[binder.Name];
+            Stash[binder.Name] = (x) => modificator(previousStashedFunc(x))[0];
             return true;
         }
     }
@@ -57,7 +62,7 @@ public class Character : DynamicObject
             args = args ?? Array.Empty<object>();
             result = default;
             var targetLogic =
-                LuaScriptDispatcher.GetScripts(binder.Name + "/" + args[0].ToString(), this);
+                _dispatcher.GetScripts(binder.Name + "/" + args[0].ToString(), this);
             
             if (!targetLogic.Any()) return false;
             
@@ -68,5 +73,10 @@ public class Character : DynamicObject
             }
             return true;
         }
+    }
+
+    ~Character()
+    {
+        _dispatcher.Dispose();
     }
 }

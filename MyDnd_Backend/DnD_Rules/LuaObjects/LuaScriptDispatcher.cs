@@ -1,18 +1,18 @@
 ﻿
 namespace DnD.LuaObjects;
     
-public static class LuaScriptDispatcher
+public class LuaScriptDispatcher : IDisposable
 {
 
-    private static Dictionary<string, ICollection<LuaScript>> _scripts = new ();
+    private Dictionary<string, ICollection<LuaScript>> _scripts = new ();
 
-    static LuaScriptDispatcher()
+    public LuaScriptDispatcher()
     {
         var scripts = ScanForScripts();
         FillScriptCache(scripts);
     }
 
-    private static void FillScriptCache(IEnumerable<string> scripts)
+    private void FillScriptCache(IEnumerable<string> scripts)
     {
         string SanitizeFileName(string file) => file.Substring(0, file.Length - 4).Split('_')[0];
 
@@ -25,7 +25,7 @@ public static class LuaScriptDispatcher
         }
     }
 
-    private static IEnumerable<string> ScanForScripts()
+    private IEnumerable<string> ScanForScripts()
     {
         foreach (var dir in DeepSearchDirectories(LuaMagicWords.LuaFolder))
         {
@@ -39,7 +39,7 @@ public static class LuaScriptDispatcher
             yield return file.Replace('\\', '/');
     }
 
-    private static IEnumerable<string> DeepSearchDirectories(string path)
+    private IEnumerable<string> DeepSearchDirectories(string path)
     {
         if (!Directory.Exists(path))
             yield break;
@@ -51,7 +51,7 @@ public static class LuaScriptDispatcher
             yield return path;
     }
 
-    public static LuaScript[] GetScripts(string script, Character targetCharacter)
+    public LuaScript[] GetScripts(string script, Character targetCharacter)
     {
         script = LuaMagicWords.LuaFolder + script;
         foreach (var _script in _scripts[script])
@@ -61,7 +61,7 @@ public static class LuaScriptDispatcher
         return _scripts[script].ToArray();
     }
 
-    public static LuaScript[] GetScripts(Func<string, bool> pathFilter, Character targetCharacter)
+    public LuaScript[] GetScripts(Func<string, bool> pathFilter, Character targetCharacter)
     {
         var founded = _scripts.Where(tuple => pathFilter(tuple.Key))
             .SelectMany((tuple) => tuple.Value).ToArray();
@@ -72,5 +72,14 @@ public static class LuaScriptDispatcher
         }
         
         return founded;
+    }
+
+
+    public void Dispose()
+    {
+        foreach (var script in _scripts.SelectMany(x => x.Value.Select(y => y)))
+        {
+            script.Dispose();
+        }
     }
 }

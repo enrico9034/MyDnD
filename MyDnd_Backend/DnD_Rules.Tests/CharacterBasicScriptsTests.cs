@@ -3,10 +3,10 @@
 using System.Dynamic;
 using Microsoft.CSharp;
 using Microsoft.CSharp.RuntimeBinder;
+using Neo.IronLua;
 
 namespace DnD_Rules.Tests
 {
-    
     public class CharacterBasicScriptsTests
     {
         [SetUp]
@@ -61,10 +61,9 @@ namespace DnD_Rules.Tests
 
              (character.AC as double?).Should().Be(9);
              
-             character.Class("Paladin");
+             character.Classes("Paladin");
 
              (character.AC as double?).Should().Be(10);
-        
          }
     }
 }

@@ -32,7 +32,7 @@ public class LuaScript : IDisposable
                 return;
             
             _luaState = new Neo.IronLua.Lua();
-
+            
             var env = _luaState.CreateEnvironment();
             env[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
             env.DoChunk(File.ReadAllText(LuaMagicWords.LuaFolder + "Util.lua"), "util.lua");

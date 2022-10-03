@@ -1,6 +1,6 @@
 ﻿
 namespace DnD_Rules.Tests;
-
+[NonParallelizable]
 public class Skills
 {
     [Test]
@@ -10,7 +10,7 @@ public class Skills
         character.Stats.Dexterity = 15;
         character.Stats.Strength = 15;
 
-        character.Class("Paladin");
+        character.Classes("Paladin");
     
         (character.Skills.Acrobatics as double?).Should().Be(2, "15 => +2");
         (character.Skills.Athletics as double?).Should().Be(2, "15 => +2");
