@@ -85,7 +85,8 @@ public class LuaScript : IDisposable
     {
         lock (_lock)
         {
-            _luaState.Dispose();
+            if (_luaState != null) 
+                _luaState.Dispose();
         }
     }
 
