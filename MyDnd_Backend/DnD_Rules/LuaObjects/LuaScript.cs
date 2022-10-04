@@ -1,96 +1,93 @@
-﻿using NLua;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DnD.Lua;
-using DnD.MagicSystems;
 
 namespace DnD.LuaObjects;
 
 public class LuaScript : IDisposable
 {
+    internal object _lock = new object(); 
     public string TargetFile { get; }
 
     Func<bool> CheckRequirementsInternal = () => true;
 
     Func<object> CalculateInternal = () => default;
     
-    protected NLua.Lua _luaState;
+    protected Neo.IronLua.Lua _luaState;
 
-    public LuaScript(string targetFile, bool init = true)
+    public LuaScript(string targetFile)
     {
         TargetFile = targetFile;
-        
-        if(init)
-            Init(); 
     }
 
-    public void Init()
+    public void Init(Character targetCharacter)
     {
-        if (_luaState != null)
-            return;
-        
-        _luaState = new NLua.Lua();
-
-        _luaState.LoadCLRPackage();
-        
-        _luaState.DoFile(TargetFile);
-        foreach ((var systemName, var systemType) in StaticSystemTypeCollector.SystemTypes)
-            _luaState[systemName] = systemType;
-        
-        var checkFunc_lua = _luaState[LuaMagicWords.CheckRequirements_fun] as LuaFunction;
-        var calculateFunc_lua = _luaState[LuaMagicWords.Calculate_fun] as LuaFunction;
-
-        if (calculateFunc_lua == null)
-            return;
-        
-        if (checkFunc_lua != null)
-            CheckRequirementsInternal = () => (bool)checkFunc_lua.Call().FirstOrDefault();
-
-        CalculateInternal = () =>
+        lock (_lock)
         {
-            try
-            {
-                return calculateFunc_lua.Call().FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        };
-    }
+                
+            if (_luaState != null)
+                return;
+            
+            _luaState = new Neo.IronLua.Lua();
+            
+            var env = _luaState.CreateEnvironment();
+            env[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
+            env.DoChunk(File.ReadAllText(LuaMagicWords.LuaFolder + "Util.lua"), "util.lua");
+            env.DoChunk(TargetFile, Array.Empty<KeyValuePair<string, object>>());
 
-    public TReturn DoLogic<TReturn>(Character targetCharacter) 
-    {
-        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
-        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
-        return (TReturn)CalculateInternal();
+            CheckRequirementsInternal = () =>
+            {
+                try
+                {
+                    return (bool)((dynamic)env).CheckRequirements()[0];
+                }
+                catch (Exception e)
+                {
+                    return true;
+                }
+            };
+
+            CalculateInternal = () =>
+            {
+                try
+                {
+                    return ((dynamic)env).Calculate()[0];
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            };
+        }
     }
 
     public dynamic DoLogic()
     {
-        return CalculateInternal();
+        lock (_lock)
+        {
+            return CalculateInternal();
+        }
     }
 
-    public void DoLogic(Character targetCharacter)
+    public bool CheckRequirements()
     {
-        _luaState[LuaMagicWords.Character_luaState_keyword] = targetCharacter;
-        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
-        CalculateInternal();
-    }
-    
-    public bool CheckRequirements(Character targetCharacter)
-    {
-        _luaState[LuaMagicWords.Lua_helper_class_keyword] = new LuaUtil(targetCharacter);
-        return CheckRequirementsInternal();
+        lock (_lock)
+        {
+            return CheckRequirementsInternal();
+        }
     }
 
     public void Dispose()
     {
-        _luaState.Dispose();
+        lock (_lock)
+        {
+            if (_luaState != null) 
+                _luaState.Dispose();
+        }
     }
 
     ~LuaScript()

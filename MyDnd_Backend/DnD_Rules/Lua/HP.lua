@@ -1,5 +1,5 @@
 
 function Calculate()
-	ConstitutionModificator = character.Stats.Constitution.Modifier
+	ConstitutionModificator = GetModificator(character.Stats.Constitution)
 	return 10 + ConstitutionModificator
 end

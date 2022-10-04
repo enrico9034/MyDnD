@@ -1,10 +1,6 @@
-﻿using DnD.Stats;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using Neo.IronLua;
 
 namespace DnD_Rules.Tests
 {
@@ -13,27 +9,32 @@ namespace DnD_Rules.Tests
         [Test]
         public void ModifierTest()
         {
-            var stat = new Stat();
             
-            int expectedModifier = -5;
-            for (int i = 1; i <= 20; i++)
-            {
-                if (i % 2 == 0)
-                    expectedModifier++;
-                
-                stat.Value = i;
-                stat.Modifier.Should().Be(expectedModifier);
-            }
+             int expectedModifier = -5;
+             var lua = new Lua();
+             var env = lua.CreateEnvironment();
+             env.DoChunk("Lua/Util.lua", Array.Empty<KeyValuePair<string, object>>());
+             for (long i = 1; i <= 20; i++)
+             {
+                 if (i % 2 == 0)
+                     expectedModifier++;
+                 
+                 
+                 (((dynamic)env).GetModificator(i)[0] as double?).Should().Be(expectedModifier);
+             }
         }
 
         [Test]
-        public void StatLimitsTest()
+        public void ProficiencyModificator()
         {
-            var stat = new Stat();
-            stat.Value = 0;
-            stat.Value.Should().Be(1);
-            stat.Value = 21;
-            stat.Value.Should().Be(20);
+            dynamic character = new Character();
+
+            (character.ProficiencyModificator as double?).Should().Be(2);
+
+            character.Stats.Level = 10;
+            
+            (character.ProficiencyModificator as double?).Should().Be(4);
+
         }
     }
 }

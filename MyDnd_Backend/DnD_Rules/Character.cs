@@ -1,80 +1,82 @@
-using DnD.Classes;
-using DnD.MagicSystems;
-using DnD.Races;
+using System.ComponentModel;
+using System.Dynamic;
+using DnD.LuaObjects;
 
 namespace DnD;
 
 /// <summary>
 /// This is the translation of a player sheet from the DnD 5e rules.
 /// </summary>
-public class Character : DnDObj
+
+public class Character : DynamicObject
 {
-    private int _level = 0;
-    public int Level
-    {
-        get => _level;
-        set
-        {
-            _level = value;
-            LevelChangedEvent(); //TODO: Create custom event
-        }
-    }
-
-    public Health HP;
-
-    public ArmorClass AC;
-
-    public Stats.Stats Stats = new();
-
-    public ProficiencyModificator ProficiencyModificator;
-
-    public Skills.Skills Skills;
-
-    public Classes.Classes Classes;
-
-    public CharacterSystemAdaptor PowerSystem;
-    public Races.Races Race
-    {
-        set => this.ApplyRace(value);
-    }
-
-    public delegate void CharacterEventHandler();
+    internal object _lock = new object();
+    public dynamic Stats = new ExpandoObject();
     
-    public event CharacterEventHandler StatsChangedEvent = ()
-        => Console.WriteLine("Recalculation stats"); 
+    public Dictionary<string, Func<dynamic, dynamic>> Stash = new();
 
-    public event CharacterEventHandler LevelChangedEvent = ()
-        => Console.WriteLine("Recalculation level");
+    internal LuaScriptDispatcher _dispatcher = new LuaScriptDispatcher();
     
     public Character()
     {
-        HP = new(this);
-        AC = new(this);
-        ProficiencyModificator = new(this);
-        Skills = new(this);
-        Classes = new(this);
-        PowerSystem = new(this);
-        
-        Stats.AnyStatsChangedEvent += StatsChanged;
+        _dispatcher.GetScripts("Stats", this);
     }
-
-    private bool _recalculatingStats = false;
-    private object _lock = new object();
-    public void StatsChanged()
+    
+    public override bool TryGetMember(GetMemberBinder binder, out object? result)
     {
         lock (_lock)
         {
-            _recalculatingStats = true;
-            StatsChangedEvent();
-            _recalculatingStats = false;    
+            result = default;
+            var targetLogic = _dispatcher.GetScripts(binder.Name, this);
+            if (!targetLogic.Any())
+                return false;
+            
+            result = targetLogic[0].DoLogic();
+            if (Stash.TryGetValue(binder.Name, out var modificator))
+                result = modificator(result);
+            
+            return true;
         }
     }
 
-    public bool IsRecalculatingStats()
+    public override bool TrySetMember(SetMemberBinder binder, object? value)
     {
         lock (_lock)
         {
-            return _recalculatingStats;
+            if (value is null)
+                throw new NullReferenceException();
+            if (!(value is Func<dynamic, dynamic> modificator))
+                return true;
+            Func<dynamic, dynamic> previousStashedFunc = (x) => x;
+            if (Stash.ContainsKey(binder.Name))
+                previousStashedFunc = Stash[binder.Name];
+            Stash[binder.Name] = (x) => modificator(previousStashedFunc(x))[0];
+            return true;
         }
+    }
+
+    public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
+    {
+        lock (_lock)
+        {
+            args = args ?? Array.Empty<object>();
+            result = default;
+            var targetLogic =
+                _dispatcher.GetScripts(binder.Name + "/" + args[0].ToString(), this);
+            
+            if (!targetLogic.Any()) return false;
+            
+            foreach (var logic in targetLogic)
+            {
+                if (logic.CheckRequirements())
+                    result = logic.DoLogic();
+            }
+            return true;
+        }
+    }
+
+    ~Character()
+    {
+        _dispatcher.Dispose();
     }
 }

@@ -1,9 +1,8 @@
 ﻿function CheckRequirements()
-    local level = util:GetPlayerLevel()
-    return level >= 2
+    return false
 end
 
 
 function Calculate()
-    util:EnablePowerSystem(Ki)
+    character.Stash.MonkLevel = 2
 end

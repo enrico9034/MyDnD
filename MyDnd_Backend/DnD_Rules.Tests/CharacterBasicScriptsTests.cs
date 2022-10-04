@@ -1,16 +1,12 @@
-﻿using DnD;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DnD.Classes;
-using DnD.Races;
+﻿
+
+using System.Dynamic;
+using Microsoft.CSharp;
+using Microsoft.CSharp.RuntimeBinder;
+using Neo.IronLua;
 
 namespace DnD_Rules.Tests
 {
-    
     public class CharacterBasicScriptsTests
     {
         [SetUp]
@@ -22,51 +18,52 @@ namespace DnD_Rules.Tests
         [Test]
         public void ArmorClassTest()
         {
-            var character = new Character();
-            character.Stats.Dexterity.Value = 15;
+            dynamic character =(IDynamicMetaObjectProvider)new Character();
+            character.Stats.Dexterity = 15;
 
             //character.StatsChanged();
-
-            character.AC.Value.Should().Be(12, "15 => +2, 10 + 2 = 12");
+            double dex = character.Stats.Dexterity;
+            dex.Should().Be(15);
+            double ac = character.AC;
+            ac.Should().Be(12, "15 => +2, 10 + 2 = 12");
 
         }
         
-        [Test]
-        public void HealthTest()
-        {
-            var character = new Character();
-            character.Stats.Constitution.Value = 9;
-            
-            //character.StatsChanged();
-
-            character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
-
-            character.Race = Races.Dwarf;
-            
-            character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
-
-
-        }
+         [Test]
+         public void HealthTest()
+         {
+             dynamic character = new Character();
+             character.Stats.Constitution = 9;
+             
+             //character.StatsChanged();
         
-        [Test]
-        public void DwarfLevel2Test()
-        {
-            var character = new Character();
-            character.Stats.Constitution.Value = 9;
-            character.Stats.Dexterity.Value = 9;
-            //character.StatsChanged();
+             (character.HP as double?).Should().Be(9, "9 => -1, 10 - 1 = 9");
+        
+             character.Race("Dwarf");
+             
+             (character.HP as double?).Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
+         }
+        
+         [Test]
+         public void DwarfLevel2Test()
+         {
+             dynamic character = new Character();
+             character.Stats.Constitution = 9;
+             character.Stats.Dexterity = 9;
+             //character.StatsChanged();
 
-            character.HP.Value.Should().Be(9, "9 => -1, 10 - 1 = 9");
+             var hp = character.HP as double?;
+             hp.Should().Be(9, "9 => -1, 10 - 1 = 9");
+        
+             character.Race("Dwarf");
+             
+             (character.HP as double?).Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
 
-            character.Race = Races.Dwarf;
-            
-            character.HP.Value.Should().Be(10, "Dwarf => Const + 2 = 11, 11 => + 0, 10 + 0 = 10");
-            
-            character.Classes.Add<Paladin>();
-            character.Classes[0].Level = 2;
+             (character.AC as double?).Should().Be(9);
+             
+             character.Classes("Paladin");
 
-            character.Stats.Dexterity.Value.Should().Be(11);
-
-        }
+             (character.AC as double?).Should().Be(10);
+         }
     }
 }
