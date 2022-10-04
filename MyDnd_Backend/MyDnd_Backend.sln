@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDnd_Backend_Api", "MyDnd_Backend_Api\MyDnd_Backend_Api.csproj", "{D9D4E0D9-AE3E-482C-9B70-E67DCAA542D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD", "DnD_Rules\DnD.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.Core", "DnD_Rules\DnD.Core.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD_Rules.Tests", "DnD_Rules.Tests\DnD_Rules.Tests.csproj", "{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}"
 EndProject

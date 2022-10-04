@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Dynamic;
-using DnD.LuaObjects;
+using DnD.Core.LuaObjects;
 
-namespace DnD;
+namespace DnD.Core;
 
 /// <summary>
-/// This is the translation of a player sheet from the DnD 5e rules.
+/// This is the translation of a player sheet from the DnD.Core 5e rules.
 /// </summary>
 
 public class Character : DynamicObject

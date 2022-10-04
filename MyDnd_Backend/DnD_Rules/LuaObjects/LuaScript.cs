@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DnD.Lua;
+using DnD.Core.Lua;
 
-namespace DnD.LuaObjects;
+namespace DnD.Core.LuaObjects;
 
 public class LuaScript : IDisposable
 {

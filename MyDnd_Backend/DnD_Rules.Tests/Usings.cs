@@ -1,6 +1,6 @@
 global using NUnit.Framework;
-global using DnD;
-global using DnD.LuaObjects;
+global using DnD.Core;
+global using DnD.Core.LuaObjects;
 global using FluentAssertions;
 using FluentAssertions.Primitives;
 

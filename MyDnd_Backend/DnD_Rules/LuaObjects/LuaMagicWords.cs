@@ -1,4 +1,4 @@
-﻿namespace DnD.LuaObjects;
+﻿namespace DnD.Core.LuaObjects;
 
 public static class LuaMagicWords
 {

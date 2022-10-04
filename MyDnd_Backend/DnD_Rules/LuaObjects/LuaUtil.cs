@@ -1,5 +1,5 @@
 ﻿
-namespace DnD.Lua;
+namespace DnD.Core.Lua;
 
 public class LuaUtil
 {

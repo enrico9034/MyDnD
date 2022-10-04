@@ -1,5 +1,5 @@
 ﻿
-namespace DnD.LuaObjects;
+namespace DnD.Core.LuaObjects;
     
 public class LuaScriptDispatcher : IDisposable
 {
