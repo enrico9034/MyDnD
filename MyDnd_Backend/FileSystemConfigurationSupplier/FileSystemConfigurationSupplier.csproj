@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DnD.LuaInterpreter\DnD.LuaInterpreter.csproj" />
       <ProjectReference Include="..\DnD_Rules\DnD.Core.csproj" />
     </ItemGroup>
 
@@ -56,11 +57,6 @@
       <None Update="Lua\Systems\Ki\FurryOfBlows.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="NeoLua" Version="1.3.15-beta.1" />
-      <PackageReference Include="NeoLuaDebug" Version="1.3.15-beta.1" />
     </ItemGroup>
 
 </Project>

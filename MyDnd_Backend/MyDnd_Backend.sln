@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationSuppliers", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemConfigurationSupplier", "FileSystemConfigurationSupplier\FileSystemConfigurationSupplier.csproj", "{4449A9B2-2723-4580-81E6-0E44D3289B49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnD.LuaInterpreter", "DnD.LuaInterpreter\DnD.LuaInterpreter.csproj", "{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

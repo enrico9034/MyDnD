@@ -10,6 +10,6 @@ public static class UtilBuilder
 {
     public static IScriptSupplier GetLuaSupplier()
     {
-        return new ScriptSupplier();
+        return new LuaScriptSupplier(new LuaScriptDispatcherAdaptor());
     }
 }
