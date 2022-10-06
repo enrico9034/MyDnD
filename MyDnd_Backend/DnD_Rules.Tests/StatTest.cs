@@ -27,7 +27,7 @@ namespace DnD_Rules.Tests
         [Test]
         public void ProficiencyModificator()
         {
-            dynamic character = new Character();
+            dynamic character = new Character(UtilBuilder.GetLuaSupplier());
 
             (character.ProficiencyModificator as double?).Should().Be(2);
 

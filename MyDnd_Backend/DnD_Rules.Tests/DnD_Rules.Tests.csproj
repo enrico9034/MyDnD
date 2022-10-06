@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DnD_Rules\DnD.Core.csproj" />
+    <ProjectReference Include="..\FileSystemConfigurationSupplier\FileSystemConfigurationSupplier.csproj" />
   </ItemGroup>
 
 </Project>

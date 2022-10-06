@@ -2,12 +2,14 @@ global using NUnit.Framework;
 global using DnD.Core;
 global using DnD.Core.LuaObjects;
 global using FluentAssertions;
+using DnD.Core.ScriptSuppliers;
+using FileSystemConfigurationSupplier;
 using FluentAssertions.Primitives;
 
-public static class NunitExtensions
+public static class UtilBuilder
 {
-    public static ObjectAssertions Should<TType>(this object? target)
+    public static IScriptSupplier GetLuaSupplier()
     {
-        return ((TType)target).Should();
+        return new ScriptSupplier();
     }
 }

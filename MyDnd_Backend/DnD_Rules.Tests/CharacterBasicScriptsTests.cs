@@ -18,7 +18,7 @@ namespace DnD_Rules.Tests
         [Test]
         public void ArmorClassTest()
         {
-            dynamic character =(IDynamicMetaObjectProvider)new Character();
+            dynamic character =(IDynamicMetaObjectProvider)new Character(UtilBuilder.GetLuaSupplier());
             character.Stats.Dexterity = 15;
 
             //character.StatsChanged();
@@ -32,7 +32,7 @@ namespace DnD_Rules.Tests
          [Test]
          public void HealthTest()
          {
-             dynamic character = new Character();
+             dynamic character = new Character(UtilBuilder.GetLuaSupplier());
              character.Stats.Constitution = 9;
              
              //character.StatsChanged();
@@ -47,7 +47,7 @@ namespace DnD_Rules.Tests
          [Test]
          public void DwarfLevel2Test()
          {
-             dynamic character = new Character();
+             dynamic character = new Character(UtilBuilder.GetLuaSupplier());
              character.Stats.Constitution = 9;
              character.Stats.Dexterity = 9;
              //character.StatsChanged();
