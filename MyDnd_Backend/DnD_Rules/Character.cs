@@ -28,7 +28,13 @@ public class Character : DynamicObject
         lock (_lock)
         {
             result = default;
-            var targetLogic = _scriptSupplier.GetScript(binder.Name);
+            var targetLogic = _scriptSupplier.GetScript(new ScriptRequestParam()
+            {
+                parameters = new List<string>()
+                {
+                    binder.Name
+                }
+            });
                 
             result = targetLogic.DoScript();
             if (Stash.TryGetValue(binder.Name, out var modificator))
@@ -61,7 +67,14 @@ public class Character : DynamicObject
             args = args ?? Array.Empty<object>();
             result = default;
             var targetLogic =
-                _scriptSupplier.GetScriptCollection(binder.Name + "/" + args[0]);
+                _scriptSupplier.GetScriptCollection(new ScriptRequestParam()
+                {
+                    parameters = new List<string>()
+                    {
+                        binder.Name,
+                        args[0] as string
+                    }
+                });
             if (!targetLogic.Scripts().Any()) return false;
             
             foreach (var logic in targetLogic.Scripts())

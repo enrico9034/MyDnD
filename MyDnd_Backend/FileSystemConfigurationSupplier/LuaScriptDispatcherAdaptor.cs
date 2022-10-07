@@ -1,4 +1,5 @@
 ﻿using DnD.Core.LuaObjects;
+using DnD.Core.ScriptSuppliers;
 using DnD.LuaInterpreter;
 
 namespace FileSystemConfigurationSupplier;
@@ -12,9 +13,14 @@ public class LuaScriptDispatcherAdaptor : ILuaContentDispatcher
         _dispatcher = new LuaScriptDispatcher();
     }
     
-    public LuaContent[] GetLuaContent(string contentName)
+    private LuaContent[] GetLuaContent(string contentName)
     {
         return _dispatcher.GetScripts(contentName);
+    }
+
+    public LuaContent[] GetLuaContent(ScriptRequestParam contentInput)
+    {
+        return GetLuaContent(string.Join('/', contentInput.parameters));
     }
 
     public LuaContent GetLuaInitContent()
