@@ -15,6 +15,9 @@
       <None Update="Lua\AC.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Lua\PowerSystem.lua">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="Lua\Class.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -54,7 +57,7 @@
       <None Update="Lua\Race\Dwarf_2.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Lua\Systems\Ki\FurryOfBlows.lua">
+      <None Update="Lua\Ki\FurryOfBlows.lua">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

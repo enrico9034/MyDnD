@@ -66,8 +66,10 @@ public class Character : DynamicObject
             
             foreach (var logic in targetLogic.Scripts())
             {
-                if (logic.AreRequirementMet())
-                    result = logic.DoScript();
+                if (!logic.AreRequirementMet())
+                    continue;
+                Console.WriteLine(binder.Name + "/" + args[0]);
+                result = logic.DoScript();
             }
             return true;
         }
