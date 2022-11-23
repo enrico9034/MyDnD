@@ -15,3 +15,12 @@ function GetModificator(statValue)
     return
 end
 
+function GetTableEntryValueKey(table, entryKey)
+    for key, value in pairs(table) do
+        if type(value) == "table" then
+            if value.Name == entryKey then
+                return key, value
+            end
+        end
+    end
+end

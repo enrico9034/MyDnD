@@ -1,14 +1,8 @@
 ﻿
 function CheckRequirements()
-    for key, value in pairs(character.Class) do
-        if type(value) == "table" then
-            if value.Name == "Paladin" then
-                return value.Level == 1 and character.Stats.Level == 2
-            end
-        end
-    end
-    
-    return false
+    key, value = GetTableEntryValueKey(character.Class, "Paladin")
+   
+    return value.Level == 1 and character.Stats.Level > 1
 end
 
 function Calculate()
@@ -16,14 +10,11 @@ function Calculate()
         return previusAC + 1
     end
     character.Class = function (previusClassTable)
-        for key, value in pairs(previusClassTable) do
-            if type(value) == "table" then
-                if value.Name == "Paladin" then
-                    previusClassTable[key].Level = 2
-                    previusClassTable[key].Description = "Now we are level 2"
-                end
-            end
-        end
+        key, value = GetTableEntryValueKey(character.Class, "Paladin")
+        
+        previusClassTable[key].Level = 2
+        previusClassTable[key].Description = "Now we are level 2"
+        
         return previusClassTable
     end
 end
