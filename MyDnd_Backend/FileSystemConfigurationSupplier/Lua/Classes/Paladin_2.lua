@@ -10,7 +10,7 @@ function Calculate()
         return previusAC + 1
     end
     character.Class = function (previusClassTable)
-        key, value = GetTableEntryValueKey(character.Class, "Paladin")
+        key, value = GetTableEntryValueKey(previusClassTable, "Paladin")
         
         previusClassTable[key].Level = 2
         previusClassTable[key].Description = "Now we are level 2"
