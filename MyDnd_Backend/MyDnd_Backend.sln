@@ -5,9 +5,15 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDnd_Backend_Api", "MyDnd_Backend_Api\MyDnd_Backend_Api.csproj", "{D9D4E0D9-AE3E-482C-9B70-E67DCAA542D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD", "DnD_Rules\DnD.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.Core", "DnD_Rules\DnD.Core.csproj", "{317CE505-A4D4-40BE-B13F-5CA69E669E5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD_Rules.Tests", "DnD_Rules.Tests\DnD_Rules.Tests.csproj", "{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationSuppliers", "ConfigurationSuppliers", "{B0690041-F8A1-4C81-BF2C-E20C265E8DAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemConfigurationSupplier", "FileSystemConfigurationSupplier\FileSystemConfigurationSupplier.csproj", "{4449A9B2-2723-4580-81E6-0E44D3289B49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnD.LuaInterpreter", "DnD.LuaInterpreter\DnD.LuaInterpreter.csproj", "{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,11 +33,22 @@ Global
 		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A671E8F-BD0F-4E99-9BDA-FE3B615B4164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4449A9B2-2723-4580-81E6-0E44D3289B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B4E8DF-7C47-45C4-8D2F-C637B2FD7773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2B87AD-8488-4AF8-AC24-5694F5983FEA}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4449A9B2-2723-4580-81E6-0E44D3289B49} = {B0690041-F8A1-4C81-BF2C-E20C265E8DAD}
 	EndGlobalSection
 EndGlobal

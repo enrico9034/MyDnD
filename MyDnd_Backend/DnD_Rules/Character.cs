@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Dynamic;
-using DnD.LuaObjects;
+using DnD.Core.ScriptSuppliers;
 
-namespace DnD;
+namespace DnD.Core;
 
 /// <summary>
-/// This is the translation of a player sheet from the DnD 5e rules.
+/// This is the translation of a player sheet from the DnD.Core 5e rules.
 /// </summary>
 
 public class Character : DynamicObject
@@ -14,12 +14,13 @@ public class Character : DynamicObject
     public dynamic Stats = new ExpandoObject();
     
     public Dictionary<string, Func<dynamic, dynamic>> Stash = new();
-
-    internal LuaScriptDispatcher _dispatcher = new LuaScriptDispatcher();
+    private IScriptSupplier _scriptSupplier;
     
-    public Character()
+    public Character(IScriptSupplier scriptSupplier)
     {
-        _dispatcher.GetScripts("Stats", this);
+        scriptSupplier.SetCharacterInstance(this);
+        _scriptSupplier = scriptSupplier;
+        _scriptSupplier.GetInitScript().DoScript();
     }
     
     public override bool TryGetMember(GetMemberBinder binder, out object? result)
@@ -27,11 +28,15 @@ public class Character : DynamicObject
         lock (_lock)
         {
             result = default;
-            var targetLogic = _dispatcher.GetScripts(binder.Name, this);
-            if (!targetLogic.Any())
-                return false;
-            
-            result = targetLogic[0].DoLogic();
+            var targetLogic = _scriptSupplier.GetScript(new ScriptRequestParam()
+            {
+                parameters = new List<string>()
+                {
+                    binder.Name
+                }
+            });
+                
+            result = targetLogic.DoScript();
             if (Stash.TryGetValue(binder.Name, out var modificator))
                 result = modificator(result);
             
@@ -62,14 +67,22 @@ public class Character : DynamicObject
             args = args ?? Array.Empty<object>();
             result = default;
             var targetLogic =
-                _dispatcher.GetScripts(binder.Name + "/" + args[0].ToString(), this);
+                _scriptSupplier.GetScriptCollection(new ScriptRequestParam()
+                {
+                    parameters = new List<string>()
+                    {
+                        binder.Name,
+                        args[0] as string
+                    }
+                });
+            if (!targetLogic.Scripts().Any()) return false;
             
-            if (!targetLogic.Any()) return false;
-            
-            foreach (var logic in targetLogic)
+            foreach (var logic in targetLogic.Scripts())
             {
-                if (logic.CheckRequirements())
-                    result = logic.DoLogic();
+                if (!logic.AreRequirementMet())
+                    continue;
+                Console.WriteLine(binder.Name + "/" + args[0]);
+                result = logic.DoScript();
             }
             return true;
         }
@@ -77,6 +90,6 @@ public class Character : DynamicObject
 
     ~Character()
     {
-        _dispatcher.Dispose();
+        _scriptSupplier.Dispose();
     }
 }

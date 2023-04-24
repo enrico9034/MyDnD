@@ -1,0 +1,3 @@
+﻿function Calculate()
+    return {}  
+end 

@@ -1,10 +1,13 @@
 ﻿
-namespace DnD.LuaObjects;
+using DnD.LuaInterpreter;
+using FileSystemConfigurationSupplier;
+
+namespace DnD.Core.LuaObjects;
     
 public class LuaScriptDispatcher : IDisposable
 {
 
-    private Dictionary<string, ICollection<LuaScript>> _scripts = new ();
+    private Dictionary<string, ICollection<LuaContentFromFile>> _scripts = new ();
 
     public LuaScriptDispatcher()
     {
@@ -20,8 +23,8 @@ public class LuaScriptDispatcher : IDisposable
         {
             var scriptKey = SanitizeFileName(script);
             if (!_scripts.ContainsKey(scriptKey))
-                _scripts[scriptKey] = new List<LuaScript>();
-            _scripts[scriptKey].Add(new LuaScript(script)); //TODO (DG): Check if the string contains also the folder
+                _scripts[scriptKey] = new List<LuaContentFromFile>();
+            _scripts[scriptKey].Add(new LuaContentFromFile(script)); //TODO (DG): Check if the string contains also the folder
         }
     }
 
@@ -51,25 +54,16 @@ public class LuaScriptDispatcher : IDisposable
             yield return path;
     }
 
-    public LuaScript[] GetScripts(string script, Character targetCharacter)
+    public LuaContentFromFile[] GetScripts(string script)
     {
         script = LuaMagicWords.LuaFolder + script;
-        foreach (var _script in _scripts[script])
-        {
-            _script.Init(targetCharacter);            
-        }
         return _scripts[script].ToArray();
     }
 
-    public LuaScript[] GetScripts(Func<string, bool> pathFilter, Character targetCharacter)
+    public LuaContentFromFile[] GetScripts(Func<string, bool> pathFilter, Character targetCharacter)
     {
         var founded = _scripts.Where(tuple => pathFilter(tuple.Key))
             .SelectMany((tuple) => tuple.Value).ToArray();
-
-        foreach (var found in founded)
-        {
-            found.Init(targetCharacter);
-        }
         
         return founded;
     }
@@ -77,9 +71,6 @@ public class LuaScriptDispatcher : IDisposable
 
     public void Dispose()
     {
-        foreach (var script in _scripts.SelectMany(x => x.Value.Select(y => y)))
-        {
-            script.Dispose();
-        }
+        return;
     }
 }

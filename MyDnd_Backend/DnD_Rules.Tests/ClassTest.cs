@@ -8,7 +8,7 @@ public class ClassTest
     [Test]
     public void Paladin()
     {
-        dynamic character = new Character();
+        dynamic character = new Character(UtilBuilder.GetLuaSupplier());
         character.Stats.Dexterity = 15;
     
         (character.AC as double?).Should().Be(12, "15 => +2, 10 + 2 = 12");

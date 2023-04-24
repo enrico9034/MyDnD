@@ -6,7 +6,7 @@ public class Skills
     [Test]
     public void AcrobaticsTest()
     {
-        dynamic character = new Character();
+        dynamic character = new Character(UtilBuilder.GetLuaSupplier());
         character.Stats.Dexterity = 15;
         character.Stats.Strength = 15;
 
