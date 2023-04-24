@@ -23,4 +23,5 @@ function GetTableEntryValueKey(table, entryKey)
             end
         end
     end
+    return nil, nil
 end
