@@ -10,4 +10,8 @@
       <ProjectReference Include="..\DnD_Rules\DnD.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FastMember" Version="1.5.0" />
+    </ItemGroup>
+
 </Project>
